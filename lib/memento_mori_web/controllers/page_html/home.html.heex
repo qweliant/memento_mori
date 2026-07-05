@@ -1,0 +1,166 @@
+<Layouts.flash_group flash={@flash} />
+
+<div class="relative overflow-hidden">
+  <%!-- soft, warm decorative glows --%>
+  <div class="pointer-events-none absolute -top-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-amber-300/30 blur-3xl dark:bg-amber-500/10">
+  </div>
+  <div class="pointer-events-none absolute top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-rose-300/30 blur-3xl dark:bg-rose-500/10">
+  </div>
+  <div class="pointer-events-none absolute left-1/4 -bottom-40 h-[26rem] w-[26rem] rounded-full bg-primary/20 blur-3xl">
+  </div>
+
+  <%!-- HERO --%>
+  <section class="relative mx-auto max-w-5xl px-6 pt-14 pb-20 text-center sm:pt-20">
+    <div class="mx-auto mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-base-300 bg-base-100/70 shadow-sm backdrop-blur">
+      <.icon name="hero-envelope" class="size-8 text-primary" />
+    </div>
+
+    <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/60 px-4 py-1.5 text-xs font-medium tracking-wide text-base-content/70 uppercase backdrop-blur">
+      <.icon name="hero-sparkles-micro" class="size-3.5 text-primary" /> Letters to the future
+    </p>
+
+    <h1 class="mx-auto max-w-3xl text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+      Some things are meant to <span class="text-primary">outlive us</span>.
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-pretty text-base-content/70">
+      Memento Mori is a quiet vault for the people you love. Seal your letters, photos, and
+      memories now — and choose the moment, maybe years from now, when they'll open.
+    </p>
+
+    <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <%= if @current_scope do %>
+        <.link
+          navigate={~p"/capsules"}
+          class="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-content shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:brightness-110"
+        >
+          Go to your capsules
+          <.icon name="hero-arrow-right" class="size-4 transition group-hover:translate-x-0.5" />
+        </.link>
+      <% else %>
+        <.link
+          navigate={~p"/owners/register"}
+          class="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-content shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:brightness-110"
+        >
+          Create your archive
+          <.icon name="hero-arrow-right" class="size-4 transition group-hover:translate-x-0.5" />
+        </.link>
+        <.link
+          navigate={~p"/owners/log-in"}
+          class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/70 px-6 py-3 font-semibold text-base-content backdrop-blur transition hover:-translate-y-0.5 hover:bg-base-200"
+        >
+          <.icon name="hero-arrow-right-on-rectangle" class="size-4" /> Log in
+        </.link>
+      <% end %>
+    </div>
+
+    <p class="mt-6 text-sm text-base-content/50">
+      Encrypted on your device · Opened only when you say so
+    </p>
+  </section>
+
+  <%!-- HOW IT WORKS --%>
+  <section class="relative mx-auto max-w-5xl px-6 pb-20">
+    <div class="mb-12 text-center">
+      <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">How it works</h2>
+      <p class="mt-3 text-base-content/60">
+        Three gentle steps. Nothing simulated, nothing altered.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-3">
+      <div class="group relative rounded-3xl border border-base-300 bg-base-100/60 p-7 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
+        <span class="absolute top-6 right-6 text-sm font-semibold text-base-content/30">01</span>
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+          <.icon name="hero-lock-closed" class="size-6" />
+        </div>
+        <h3 class="text-lg font-semibold">Seal what matters</h3>
+        <p class="mt-2 text-sm leading-6 text-base-content/70">
+          Gather letters, photos, and records into a capsule. Everything is locked on your own
+          device before it reaches us — we only ever hold the sealed box, never the key.
+        </p>
+      </div>
+
+      <div class="group relative rounded-3xl border border-base-300 bg-base-100/60 p-7 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
+        <span class="absolute top-6 right-6 text-sm font-semibold text-base-content/30">02</span>
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">
+          <.icon name="hero-clock" class="size-6" />
+        </div>
+        <h3 class="text-lg font-semibold">Set the moment</h3>
+        <p class="mt-2 text-sm leading-6 text-base-content/70">
+          Choose when it opens — a date, a milestone like an 18th birthday, or after you're gone,
+          confirmed by the people you trust most.
+        </p>
+      </div>
+
+      <div class="group relative rounded-3xl border border-base-300 bg-base-100/60 p-7 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
+        <span class="absolute top-6 right-6 text-sm font-semibold text-base-content/30">03</span>
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+          <.icon name="hero-paper-airplane" class="size-6" />
+        </div>
+        <h3 class="text-lg font-semibold">Delivered faithfully</h3>
+        <p class="mt-2 text-sm leading-6 text-base-content/70">
+          When the moment arrives, exactly the people you chose receive exactly what you left —
+          no copies, no imitations, no AI pretending to be you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <%!-- PRINCIPLES --%>
+  <section class="relative mx-auto max-w-5xl px-6 pb-24">
+    <div class="flex flex-wrap items-center justify-center gap-3 text-sm">
+      <span class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/60 px-4 py-2 text-base-content/70 backdrop-blur">
+        <.icon name="hero-shield-check" class="size-4 text-primary" /> Zero-knowledge
+      </span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/60 px-4 py-2 text-base-content/70 backdrop-blur">
+        <.icon name="hero-finger-print" class="size-4 text-primary" /> Provenance you can verify
+      </span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/60 px-4 py-2 text-base-content/70 backdrop-blur">
+        <.icon name="hero-heart" class="size-4 text-primary" /> Never a griefbot
+      </span>
+      <span class="inline-flex items-center gap-2 rounded-full border border-base-300 bg-base-100/60 px-4 py-2 text-base-content/70 backdrop-blur">
+        <.icon name="hero-arrow-path" class="size-4 text-primary" />
+        Yours to change while you live
+      </span>
+    </div>
+  </section>
+
+  <%!-- CLOSING --%>
+  <section class="relative mx-auto max-w-3xl px-6 pb-28 text-center">
+    <div class="rounded-3xl border border-base-300 bg-base-100/70 p-10 shadow-sm backdrop-blur">
+      <.icon name="hero-clock" class="mx-auto mb-4 size-8 text-primary" />
+      <h2 class="text-2xl font-semibold tracking-tight">Remember you must live.</h2>
+      <p class="mx-auto mt-3 max-w-md text-base-content/70">
+        The best time to leave something behind is while you still have it to give.
+      </p>
+      <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <%= if @current_scope do %>
+          <.link
+            navigate={~p"/capsules"}
+            class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-content shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:brightness-110"
+          >
+            Open your capsules
+          </.link>
+        <% else %>
+          <.link
+            navigate={~p"/owners/register"}
+            class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-semibold text-primary-content shadow-lg shadow-primary/20 transition hover:-translate-y-0.5 hover:brightness-110"
+          >
+            Start your first capsule
+          </.link>
+          <.link
+            navigate={~p"/owners/log-in"}
+            class="font-semibold text-base-content/70 underline-offset-4 transition hover:text-base-content hover:underline"
+          >
+            I already have an account
+          </.link>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-base-300/60 py-8 text-center text-xs text-base-content/40">
+    Memento Mori · a quiet place for what outlives us
+  </footer>
+</div>

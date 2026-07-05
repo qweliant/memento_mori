@@ -1,0 +1,1773 @@
+{
+  "version": "1.0.0",
+  "timestamp": 1783273425095,
+  "workspaceRoot": "/Users/qwelian/Programs/memento_mori",
+  "registries": {
+    "components": {
+      "components": [
+        [
+          "__phoenix_builtins__",
+          [
+            {
+              "name": "link",
+              "moduleName": "Phoenix.Component",
+              "filePath": "/Users/qwelian/.vscode/extensions/onsever.phoenix-pulse-1.3.0/node_modules/@phoenix-pulse/language-server/resources/phoenix_component_builtins.ex",
+              "line": 1,
+              "doc": "Phoenix.Component.link/1 – Generates an anchor tag that supports LiveView-aware navigation.",
+              "attributes": [
+                {
+                  "name": "navigate",
+                  "type": "string",
+                  "required": false,
+                  "doc": "Use VerifiedRoutes: `navigate={~p\"/path\"}`"
+                },
+                {
+                  "name": "patch",
+                  "type": "string",
+                  "required": false,
+                  "doc": "Use VerifiedRoutes: `patch={~p\"/path\"}`"
+                },
+                {
+                  "name": "href",
+                  "type": "string",
+                  "required": false,
+                  "doc": "External/legacy target. Prefer `navigate`/`patch` with VerifiedRoutes."
+                },
+                {
+                  "name": "method",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "class",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "replace",
+                  "type": "boolean",
+                  "required": false
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "live_patch",
+              "moduleName": "Phoenix.Component",
+              "filePath": "/Users/qwelian/.vscode/extensions/onsever.phoenix-pulse-1.3.0/node_modules/@phoenix-pulse/language-server/resources/phoenix_component_builtins.ex",
+              "line": 1,
+              "doc": "Phoenix.Component.live_patch/1 – Generates a patch navigation link within the same LiveView.",
+              "attributes": [
+                {
+                  "name": "patch",
+                  "type": "string",
+                  "required": true,
+                  "doc": "Use VerifiedRoutes: `patch={~p\"/path\"}`"
+                },
+                {
+                  "name": "class",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "replace",
+                  "type": "boolean",
+                  "required": false
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "live_redirect",
+              "moduleName": "Phoenix.Component",
+              "filePath": "/Users/qwelian/.vscode/extensions/onsever.phoenix-pulse-1.3.0/node_modules/@phoenix-pulse/language-server/resources/phoenix_component_builtins.ex",
+              "line": 1,
+              "doc": "Phoenix.Component.live_redirect/1 – Generates a redirect navigation link to another LiveView or controller.",
+              "attributes": [
+                {
+                  "name": "navigate",
+                  "type": "string",
+                  "required": true,
+                  "doc": "Use VerifiedRoutes: `navigate={~p\"/path\"}`"
+                },
+                {
+                  "name": "class",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "replace",
+                  "type": "boolean",
+                  "required": false
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "live_component",
+              "moduleName": "Phoenix.Component",
+              "filePath": "/Users/qwelian/.vscode/extensions/onsever.phoenix-pulse-1.3.0/node_modules/@phoenix-pulse/language-server/resources/phoenix_component_builtins.ex",
+              "line": 1,
+              "doc": "Phoenix.Component.live_component/1 – Embeds a stateful LiveComponent from HEEx.",
+              "attributes": [
+                {
+                  "name": "module",
+                  "type": "module",
+                  "required": true,
+                  "doc": "LiveComponent module (e.g., `module={MyAppWeb.ModalComponent}`)."
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "required": true
+                },
+                {
+                  "name": ":for",
+                  "type": "any",
+                  "required": false
+                },
+                {
+                  "name": ":let",
+                  "type": "any",
+                  "required": false
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": false,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "form",
+              "moduleName": "Phoenix.Component",
+              "filePath": "/Users/qwelian/.vscode/extensions/onsever.phoenix-pulse-1.3.0/node_modules/@phoenix-pulse/language-server/resources/phoenix_component_builtins.ex",
+              "line": 1,
+              "doc": "Phoenix.Component.form/1 – Renders a HEEx form with support for :let assigns and action attributes.",
+              "attributes": [
+                {
+                  "name": "for",
+                  "type": "any",
+                  "required": true
+                },
+                {
+                  "name": "as",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "action",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "method",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "phx-submit",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": "phx-change",
+                  "type": "string",
+                  "required": false
+                },
+                {
+                  "name": ":let",
+                  "type": "any",
+                  "required": false
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                },
+                {
+                  "name": "actions",
+                  "required": false,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "inputs_for",
+              "moduleName": "Phoenix.Component",
+              "filePath": "/Users/qwelian/.vscode/extensions/onsever.phoenix-pulse-1.3.0/node_modules/@phoenix-pulse/language-server/resources/phoenix_component_builtins.ex",
+              "line": 1,
+              "doc": "Phoenix.Component.inputs_for/1 – Iterates nested inputs for associations or embeds within a parent form.",
+              "attributes": [
+                {
+                  "name": "field",
+                  "type": "any",
+                  "required": true,
+                  "doc": "Form field or association (e.g., `field={f[:addresses]}`)."
+                },
+                {
+                  "name": ":let",
+                  "type": "any",
+                  "required": true,
+                  "doc": "Binding for the nested form (e.g., `:let={address_form}`)."
+                },
+                {
+                  "name": "for",
+                  "type": "any",
+                  "required": false,
+                  "doc": "Explicit changeset/source for the nested inputs."
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+          [
+            {
+              "name": "icon",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 449,
+              "attributes": [
+                {
+                  "name": "class",
+                  "type": "any",
+                  "required": false,
+                  "default": "\"size-4\"",
+                  "rawType": "any"
+                },
+                {
+                  "name": "name",
+                  "type": "string",
+                  "required": true,
+                  "rawType": "string"
+                }
+              ],
+              "slots": []
+            },
+            {
+              "name": "list",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 415,
+              "attributes": [],
+              "slots": [
+                {
+                  "name": "item",
+                  "required": true,
+                  "attributes": [
+                    {
+                      "default": null,
+                      "line": 412,
+                      "name": "title",
+                      "type": "string",
+                      "values": null,
+                      "doc": null,
+                      "required": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "table",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 363,
+              "attributes": [
+                {
+                  "name": "row_item",
+                  "type": "any",
+                  "required": false,
+                  "default": "{:&, [line: 354, column: 14], [{:/, [line: 354, column: 32], [{{:., [line: 354, column: 23], [{:__aliases__, [last: [line: 354, column: 15], line: 354, column: 15], [:Function]}, :identity]}, [no_parens: true, line: 354, column: 24], []}, 1]}]}",
+                  "doc": "the function for mapping each row before calling the :col and :action slots",
+                  "rawType": "any"
+                },
+                {
+                  "name": "row_click",
+                  "type": "any",
+                  "required": false,
+                  "default": "nil",
+                  "doc": "the function for handling phx-click on each row",
+                  "rawType": "any"
+                },
+                {
+                  "name": "row_id",
+                  "type": "any",
+                  "required": false,
+                  "default": "nil",
+                  "doc": "the function for generating the row id",
+                  "rawType": "any"
+                },
+                {
+                  "name": "rows",
+                  "type": "list",
+                  "required": true,
+                  "rawType": "list"
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "required": true,
+                  "rawType": "string"
+                }
+              ],
+              "slots": [
+                {
+                  "name": "action",
+                  "required": false,
+                  "doc": "the slot for showing user actions in the last table column",
+                  "attributes": []
+                },
+                {
+                  "name": "col",
+                  "required": true,
+                  "attributes": [
+                    {
+                      "default": null,
+                      "line": 358,
+                      "name": "label",
+                      "type": "string",
+                      "values": null,
+                      "doc": null,
+                      "required": false
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "header",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 322,
+              "attributes": [],
+              "slots": [
+                {
+                  "name": "actions",
+                  "required": false,
+                  "attributes": []
+                },
+                {
+                  "name": "subtitle",
+                  "required": false,
+                  "attributes": []
+                },
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "input",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 191,
+              "attributes": [
+                {
+                  "name": "rest",
+                  "type": "global",
+                  "required": false,
+                  "rawType": "global"
+                },
+                {
+                  "name": "error_class",
+                  "type": "any",
+                  "required": false,
+                  "default": "nil",
+                  "doc": "the input error class to use over defaults",
+                  "rawType": "any"
+                },
+                {
+                  "name": "class",
+                  "type": "any",
+                  "required": false,
+                  "default": "nil",
+                  "doc": "the input class to use over defaults",
+                  "rawType": "any"
+                },
+                {
+                  "name": "multiple",
+                  "type": "boolean",
+                  "required": false,
+                  "default": "false",
+                  "doc": "the multiple flag for select inputs",
+                  "rawType": "boolean"
+                },
+                {
+                  "name": "options",
+                  "type": "list",
+                  "required": false,
+                  "doc": "the options to pass to Phoenix.HTML.Form.options_for_select/2",
+                  "rawType": "list"
+                },
+                {
+                  "name": "prompt",
+                  "type": "string",
+                  "required": false,
+                  "default": "nil",
+                  "doc": "the prompt for select inputs",
+                  "rawType": "string"
+                },
+                {
+                  "name": "checked",
+                  "type": "boolean",
+                  "required": false,
+                  "doc": "the checked flag for checkbox inputs",
+                  "rawType": "boolean"
+                },
+                {
+                  "name": "errors",
+                  "type": "list",
+                  "required": false,
+                  "default": "[]",
+                  "rawType": "list"
+                },
+                {
+                  "name": "field",
+                  "type": "{:__aliases__, [last: [line: 176, column: 29], line: 176, column: 16], [:Phoenix, :HTML, :FormField]}",
+                  "required": false,
+                  "doc": "a form field struct retrieved from the form, for example: @form[:email]",
+                  "rawType": "{:__aliases__, [last: [line: 176, column: 29], line: 176, column: 16], [:Phoenix, :HTML, :FormField]}"
+                },
+                {
+                  "name": "type",
+                  "type": "string",
+                  "required": false,
+                  "default": "\"text\"",
+                  "rawType": "string"
+                },
+                {
+                  "name": "value",
+                  "type": "any",
+                  "required": false,
+                  "rawType": "any"
+                },
+                {
+                  "name": "label",
+                  "type": "string",
+                  "required": false,
+                  "default": "nil",
+                  "rawType": "string"
+                },
+                {
+                  "name": "name",
+                  "type": "any",
+                  "required": false,
+                  "rawType": "any"
+                },
+                {
+                  "name": "id",
+                  "type": "any",
+                  "required": false,
+                  "default": "nil",
+                  "rawType": "any"
+                }
+              ],
+              "slots": []
+            },
+            {
+              "name": "button",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 103,
+              "attributes": [
+                {
+                  "name": "variant",
+                  "type": "string",
+                  "required": false,
+                  "rawType": "string"
+                },
+                {
+                  "name": "class",
+                  "type": "any",
+                  "required": false,
+                  "rawType": "any"
+                },
+                {
+                  "name": "rest",
+                  "type": "global",
+                  "required": false,
+                  "rawType": "global"
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            },
+            {
+              "name": "flash",
+              "moduleName": "MementoMoriWeb.CoreComponents",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex",
+              "line": 57,
+              "attributes": [
+                {
+                  "name": "rest",
+                  "type": "global",
+                  "required": false,
+                  "doc": "the arbitrary HTML attributes to add to the flash container",
+                  "rawType": "global"
+                },
+                {
+                  "name": "kind",
+                  "type": "atom",
+                  "required": false,
+                  "values": [
+                    "info",
+                    "error"
+                  ],
+                  "doc": "used for styling and flash lookup",
+                  "rawType": "atom"
+                },
+                {
+                  "name": "title",
+                  "type": "string",
+                  "required": false,
+                  "default": "nil",
+                  "rawType": "string"
+                },
+                {
+                  "name": "flash",
+                  "type": "map",
+                  "required": false,
+                  "default": "{:%{}, [closing: [line: 50, column: 33], line: 50, column: 31], []}",
+                  "doc": "the map of flash messages to display",
+                  "rawType": "map"
+                },
+                {
+                  "name": "id",
+                  "type": "string",
+                  "required": false,
+                  "doc": "the optional id of flash container",
+                  "rawType": "string"
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": false,
+                  "doc": "the optional inner block that renders the flash message",
+                  "attributes": []
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex",
+          [
+            {
+              "name": "theme_toggle",
+              "moduleName": "MementoMoriWeb.Layouts",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex",
+              "line": 129,
+              "attributes": [],
+              "slots": []
+            },
+            {
+              "name": "flash_group",
+              "moduleName": "MementoMoriWeb.Layouts",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex",
+              "line": 85,
+              "attributes": [
+                {
+                  "name": "id",
+                  "type": "string",
+                  "required": false,
+                  "default": "\"flash-group\"",
+                  "doc": "the optional id of flash container",
+                  "rawType": "string"
+                },
+                {
+                  "name": "flash",
+                  "type": "map",
+                  "required": true,
+                  "doc": "the map of flash messages",
+                  "rawType": "map"
+                }
+              ],
+              "slots": []
+            },
+            {
+              "name": "app",
+              "moduleName": "MementoMoriWeb.Layouts",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex",
+              "line": 36,
+              "attributes": [
+                {
+                  "name": "current_scope",
+                  "type": "map",
+                  "required": false,
+                  "default": "nil",
+                  "doc": "the current [scope](https://phoenix.hexdocs.pm/scopes.html)",
+                  "rawType": "map"
+                },
+                {
+                  "name": "flash",
+                  "type": "map",
+                  "required": true,
+                  "doc": "the map of flash messages",
+                  "rawType": "map"
+                }
+              ],
+              "slots": [
+                {
+                  "name": "inner_block",
+                  "required": true,
+                  "attributes": []
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/error_html.ex",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html.ex",
+          []
+        ]
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex": "0f25de188239885caa9000e5ce52bd1e03671638",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex": "9d469df0be7f50f3a0fd9a4ab0c972e3bcaf3494",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/error_html.ex": "e45d3660a28874a23de46828962cb4ea6c0e7054",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex": "efee5473a61297d5f99a7f824e73ec0f8e5fb61f",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html.ex": "62d0345c050335bfafed94418b48fe6e25df73e6"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    },
+    "schemas": {
+      "schemas": [
+        [
+          "MementoMori.Accounts.Owner",
+          {
+            "moduleName": "MementoMori.Accounts.Owner",
+            "tableName": "owners",
+            "fields": [
+              {
+                "name": "email",
+                "type": "string"
+              },
+              {
+                "name": "password",
+                "type": "string"
+              },
+              {
+                "name": "hashed_password",
+                "type": "string"
+              },
+              {
+                "name": "confirmed_at",
+                "type": "utc_datetime"
+              },
+              {
+                "name": "authenticated_at",
+                "type": "utc_datetime"
+              },
+              {
+                "name": "inserted_at",
+                "type": "naive_datetime"
+              },
+              {
+                "name": "updated_at",
+                "type": "naive_datetime"
+              },
+              {
+                "name": "id",
+                "type": "id"
+              }
+            ],
+            "associations": {},
+            "associationsDetailed": [],
+            "aliases": {},
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner.ex",
+            "line": 7
+          }
+        ],
+        [
+          "MementoMori.Accounts.OwnerToken",
+          {
+            "moduleName": "MementoMori.Accounts.OwnerToken",
+            "tableName": "owners_tokens",
+            "fields": [
+              {
+                "name": "token",
+                "type": "binary"
+              },
+              {
+                "name": "context",
+                "type": "string"
+              },
+              {
+                "name": "sent_to",
+                "type": "string"
+              },
+              {
+                "name": "authenticated_at",
+                "type": "utc_datetime"
+              },
+              {
+                "name": "owner",
+                "type": "assoc",
+                "elixirType": "MementoMori.Accounts.Owner"
+              },
+              {
+                "name": "inserted_at",
+                "type": "naive_datetime"
+              },
+              {
+                "name": "updated_at",
+                "type": "naive_datetime"
+              },
+              {
+                "name": "id",
+                "type": "id"
+              }
+            ],
+            "associations": {},
+            "associationsDetailed": [
+              {
+                "fieldName": "owner",
+                "targetModule": "MementoMori.Accounts.Owner",
+                "type": "belongs_to"
+              }
+            ],
+            "aliases": {},
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner_token.ex",
+            "line": 17
+          }
+        ],
+        [
+          "MementoMori.Vault.Capsule",
+          {
+            "moduleName": "MementoMori.Vault.Capsule",
+            "tableName": "capsules",
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "sensitivity_tier",
+                "type": "string"
+              },
+              {
+                "name": "state",
+                "type": "string"
+              },
+              {
+                "name": "owner_id",
+                "type": "binary_id"
+              },
+              {
+                "name": "inserted_at",
+                "type": "naive_datetime"
+              },
+              {
+                "name": "updated_at",
+                "type": "naive_datetime"
+              },
+              {
+                "name": "id",
+                "type": "id"
+              }
+            ],
+            "associations": {},
+            "associationsDetailed": [],
+            "aliases": {},
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/capsule.ex",
+            "line": 7
+          }
+        ]
+      ],
+      "schemasByFile": [
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner.ex",
+          [
+            {
+              "moduleName": "MementoMori.Accounts.Owner",
+              "tableName": "owners",
+              "fields": [
+                {
+                  "name": "email",
+                  "type": "string"
+                },
+                {
+                  "name": "password",
+                  "type": "string"
+                },
+                {
+                  "name": "hashed_password",
+                  "type": "string"
+                },
+                {
+                  "name": "confirmed_at",
+                  "type": "utc_datetime"
+                },
+                {
+                  "name": "authenticated_at",
+                  "type": "utc_datetime"
+                },
+                {
+                  "name": "inserted_at",
+                  "type": "naive_datetime"
+                },
+                {
+                  "name": "updated_at",
+                  "type": "naive_datetime"
+                },
+                {
+                  "name": "id",
+                  "type": "id"
+                }
+              ],
+              "associations": {},
+              "associationsDetailed": [],
+              "aliases": {},
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner.ex",
+              "line": 7
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner_token.ex",
+          [
+            {
+              "moduleName": "MementoMori.Accounts.OwnerToken",
+              "tableName": "owners_tokens",
+              "fields": [
+                {
+                  "name": "token",
+                  "type": "binary"
+                },
+                {
+                  "name": "context",
+                  "type": "string"
+                },
+                {
+                  "name": "sent_to",
+                  "type": "string"
+                },
+                {
+                  "name": "authenticated_at",
+                  "type": "utc_datetime"
+                },
+                {
+                  "name": "owner",
+                  "type": "assoc",
+                  "elixirType": "MementoMori.Accounts.Owner"
+                },
+                {
+                  "name": "inserted_at",
+                  "type": "naive_datetime"
+                },
+                {
+                  "name": "updated_at",
+                  "type": "naive_datetime"
+                },
+                {
+                  "name": "id",
+                  "type": "id"
+                }
+              ],
+              "associations": {},
+              "associationsDetailed": [
+                {
+                  "fieldName": "owner",
+                  "targetModule": "MementoMori.Accounts.Owner",
+                  "type": "belongs_to"
+                }
+              ],
+              "aliases": {},
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner_token.ex",
+              "line": 17
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/capsule.ex",
+          [
+            {
+              "moduleName": "MementoMori.Vault.Capsule",
+              "tableName": "capsules",
+              "fields": [
+                {
+                  "name": "title",
+                  "type": "string"
+                },
+                {
+                  "name": "sensitivity_tier",
+                  "type": "string"
+                },
+                {
+                  "name": "state",
+                  "type": "string"
+                },
+                {
+                  "name": "owner_id",
+                  "type": "binary_id"
+                },
+                {
+                  "name": "inserted_at",
+                  "type": "naive_datetime"
+                },
+                {
+                  "name": "updated_at",
+                  "type": "naive_datetime"
+                },
+                {
+                  "name": "id",
+                  "type": "id"
+                }
+              ],
+              "associations": {},
+              "associationsDetailed": [],
+              "aliases": {},
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/capsule.ex",
+              "line": 7
+            }
+          ]
+        ]
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner.ex": "f3e8f516bb3ce27ac29259250faeca50e82eff36",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner_token.ex": "83a73df3d374b0fed9cfa24220427ba9a62851de",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/capsule.ex": "61dd78766ce855d4d7441d7fa1e8ba92a9635ba5"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    },
+    "events": {
+      "events": [
+        [
+          "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/confirmation_test.exs",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+          [
+            {
+              "name": "validate",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "line": 80,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "save",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "line": 58,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+          [
+            {
+              "name": "submit_magic",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Login",
+              "line": 114,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "submit_password",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Login",
+              "line": 110,
+              "params": "_params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+          [
+            {
+              "name": "save",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
+              "line": 64,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "validate",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
+              "line": 59,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+          [
+            {
+              "name": "delete",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Index",
+              "line": 59,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+          [
+            {
+              "name": "deleted",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Show",
+              "line": 52,
+              "params": "{deleted, %}",
+              "kind": "handle_info",
+              "nameKind": "atom"
+            },
+            {
+              "name": "updated",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Show",
+              "line": 45,
+              "params": "{updated, =}",
+              "kind": "handle_info",
+              "nameKind": "atom"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+          [
+            {
+              "name": "submit",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Confirmation",
+              "line": 91,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+          [
+            {
+              "name": "update_password",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Settings",
+              "line": 147,
+              "params": "params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "validate_password",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Settings",
+              "line": 135,
+              "params": "params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "update_email",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Settings",
+              "line": 114,
+              "params": "params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "validate_email",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Settings",
+              "line": 102,
+              "params": "params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          []
+        ]
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/confirmation_test.exs": "eaeea0222117803f27566b1212b339dd35884f05",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "729ab82c8979ab43a3a1f9c34e952c700664f23b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "8d7ae6bceb12f5d6a5d9360b32d984d436f576f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "26a36a262d39379035d9f517951a181c8e429528",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs": "c242355283158fbd31d8bc3585b69eb6226867c6",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs": "dc6767a54b2e37ff391c2f5a74c94cb62ba75814",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs": "8a7a0b5bec5aef1b68e13dec5a2832bb14c444c6",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex": "efee5473a61297d5f99a7f824e73ec0f8e5fb61f"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    },
+    "routes": {
+      "routes": [
+        {
+          "path": "/owners/log-out",
+          "verb": "DELETE",
+          "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          "line": 78,
+          "helperBase": "owners_log_out",
+          "params": [],
+          "isResource": false,
+          "controller": "OwnerSessionController",
+          "action": "delete",
+          "scopePath": "/"
+        },
+        {
+          "path": "/owners/log-in",
+          "verb": "POST",
+          "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          "line": 77,
+          "helperBase": "owners_log_in",
+          "params": [],
+          "isResource": false,
+          "controller": "OwnerSessionController",
+          "action": "create",
+          "scopePath": "/"
+        },
+        {
+          "path": "/owners/update-password",
+          "verb": "POST",
+          "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          "line": 64,
+          "helperBase": "owners_update_password",
+          "params": [],
+          "isResource": false,
+          "controller": "OwnerSessionController",
+          "action": "update_password",
+          "scopePath": "/"
+        },
+        {
+          "path": "/",
+          "verb": "GET",
+          "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          "line": 23,
+          "helperBase": "root",
+          "params": [],
+          "isResource": false,
+          "controller": "PageController",
+          "action": "home",
+          "scopePath": "/"
+        }
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex": "efee5473a61297d5f99a7f824e73ec0f8e5fb61f"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    },
+    "controllers": {
+      "rendersByFile": [
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/owner_session_controller.ex",
+          []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_controller.ex",
+          [
+            {
+              "controllerModule": "MementoMoriWeb.PageController",
+              "controllerFile": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_controller.ex",
+              "action": "home",
+              "templateName": "home",
+              "assigns": [],
+              "assignsWithTypes": [],
+              "line": 5,
+              "templatePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex"
+            }
+          ]
+        ]
+      ],
+      "templateSummaries": [
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex",
+          {
+            "templatePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex",
+            "assignSources": {},
+            "controllers": [
+              {
+                "controllerModule": "MementoMoriWeb.PageController",
+                "controllerFile": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_controller.ex",
+                "action": "home",
+                "templateName": "home",
+                "assigns": [],
+                "assignsWithTypes": [],
+                "line": 5,
+                "templatePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex"
+              }
+            ]
+          }
+        ]
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/owner_session_controller.ex": "5187cf1ccad20cfa7d1eceec82a3c78dc2d79070",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_controller.ex": "3668763e646c6f718fc6097333e8d2f50eec50dd"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    },
+    "templates": {
+      "templatesByModule": [
+        [
+          "MementoMoriWeb.CapsuleLive.Form",
+          [
+            {
+              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.PageHTML",
+          [
+            {
+              "moduleName": "MementoMoriWeb.PageHTML",
+              "name": "home",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.CapsuleLive.Index",
+          [
+            {
+              "moduleName": "MementoMoriWeb.CapsuleLive.Index",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.CapsuleLive.Show",
+          [
+            {
+              "moduleName": "MementoMoriWeb.CapsuleLive.Show",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.OwnerLive.Login",
+          [
+            {
+              "moduleName": "MementoMoriWeb.OwnerLive.Login",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.OwnerLive.Registration",
+          [
+            {
+              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.OwnerLive.Confirmation",
+          [
+            {
+              "moduleName": "MementoMoriWeb.OwnerLive.Confirmation",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.OwnerLive.Settings",
+          [
+            {
+              "moduleName": "MementoMoriWeb.OwnerLive.Settings",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex#render"
+            }
+          ]
+        ]
+      ],
+      "templatesByPath": [
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.CapsuleLive.Form",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex",
+          {
+            "moduleName": "MementoMoriWeb.PageHTML",
+            "name": "home",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html/home.html.heex"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.CapsuleLive.Index",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.CapsuleLive.Show",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.OwnerLive.Login",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.OwnerLive.Confirmation",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.OwnerLive.Settings",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex#render"
+          }
+        ]
+      ],
+      "moduleByFile": [
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+          "MementoMoriWeb.CapsuleLive.Form"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html.ex",
+          "MementoMoriWeb.PageHTML"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+          "MementoMoriWeb.CapsuleLive.Index"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+          "MementoMoriWeb.CapsuleLive.Show"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+          "MementoMoriWeb.OwnerLive.Login"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+          "MementoMoriWeb.OwnerLive.Registration"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+          "MementoMoriWeb.OwnerLive.Confirmation"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+          "MementoMoriWeb.OwnerLive.Settings"
+        ]
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "729ab82c8979ab43a3a1f9c34e952c700664f23b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html.ex": "62d0345c050335bfafed94418b48fe6e25df73e6",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "8d7ae6bceb12f5d6a5d9360b32d984d436f576f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "26a36a262d39379035d9f517951a181c8e429528",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    },
+    "liveview": {
+      "liveViews": [
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+          {
+            "module": "MementoMoriWeb.CapsuleLive.Form",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+            "functions": [
+              {
+                "line": 64,
+                "name": "save",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.CapsuleLive.Form",
+                "event_name": "save"
+              },
+              {
+                "line": 59,
+                "name": "validate",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.CapsuleLive.Form",
+                "event_name": "validate"
+              },
+              {
+                "line": 30,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.CapsuleLive.Form"
+              },
+              {
+                "line": 8,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.CapsuleLive.Form"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+          {
+            "module": "MementoMoriWeb.CapsuleLive.Index",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+            "functions": [
+              {
+                "line": 59,
+                "name": "delete",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.CapsuleLive.Index",
+                "event_name": "delete"
+              },
+              {
+                "line": 47,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.CapsuleLive.Index"
+              },
+              {
+                "line": 7,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.CapsuleLive.Index"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+          {
+            "module": "MementoMoriWeb.CapsuleLive.Show",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+            "functions": [
+              {
+                "line": 52,
+                "name": "deleted",
+                "type": "handle_info",
+                "module_name": "MementoMoriWeb.CapsuleLive.Show",
+                "event_name": "deleted"
+              },
+              {
+                "line": 45,
+                "name": "updated",
+                "type": "handle_info",
+                "module_name": "MementoMoriWeb.CapsuleLive.Show",
+                "event_name": "updated"
+              },
+              {
+                "line": 33,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.CapsuleLive.Show"
+              },
+              {
+                "line": 7,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.CapsuleLive.Show"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+          {
+            "module": "MementoMoriWeb.OwnerLive.Confirmation",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+            "functions": [
+              {
+                "line": 91,
+                "name": "submit",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Confirmation",
+                "event_name": "submit"
+              },
+              {
+                "line": 76,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Confirmation"
+              },
+              {
+                "line": 7,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.OwnerLive.Confirmation"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+          {
+            "module": "MementoMoriWeb.OwnerLive.Login",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+            "functions": [
+              {
+                "line": 114,
+                "name": "submit_magic",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Login",
+                "event_name": "submit_magic"
+              },
+              {
+                "line": 110,
+                "name": "submit_password",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Login",
+                "event_name": "submit_password"
+              },
+              {
+                "line": 99,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Login"
+              },
+              {
+                "line": 7,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.OwnerLive.Login"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+          {
+            "module": "MementoMoriWeb.OwnerLive.Registration",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+            "functions": [
+              {
+                "line": 80,
+                "name": "validate",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration",
+                "event_name": "validate"
+              },
+              {
+                "line": 58,
+                "name": "save",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration",
+                "event_name": "save"
+              },
+              {
+                "line": 51,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration"
+              },
+              {
+                "line": 8,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+          {
+            "module": "MementoMoriWeb.OwnerLive.Settings",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
+            "functions": [
+              {
+                "line": 147,
+                "name": "update_password",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings",
+                "event_name": "update_password"
+              },
+              {
+                "line": 135,
+                "name": "validate_password",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings",
+                "event_name": "validate_password"
+              },
+              {
+                "line": 114,
+                "name": "update_email",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings",
+                "event_name": "update_email"
+              },
+              {
+                "line": 102,
+                "name": "validate_email",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings",
+                "event_name": "validate_email"
+              },
+              {
+                "line": 86,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings"
+              },
+              {
+                "line": 73,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings"
+              },
+              {
+                "line": 9,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.OwnerLive.Settings"
+              }
+            ]
+          }
+        ]
+      ],
+      "fileHashes": {
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "729ab82c8979ab43a3a1f9c34e952c700664f23b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "8d7ae6bceb12f5d6a5d9360b32d984d436f576f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "26a36a262d39379035d9f517951a181c8e429528",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/confirmation_test.exs": "eaeea0222117803f27566b1212b339dd35884f05",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs": "c242355283158fbd31d8bc3585b69eb6226867c6",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs": "dc6767a54b2e37ff391c2f5a74c94cb62ba75814",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs": "8a7a0b5bec5aef1b68e13dec5a2832bb14c444c6"
+      },
+      "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
+    }
+  },
+  "fileHashes": {}
+}

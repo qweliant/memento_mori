@@ -1,0 +1,9 @@
+{
+  "name": "memento_mori_assets",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "tlock-js": "^0.9.0",
+    "drand-client": "^1.2.6"
+  }
+}
