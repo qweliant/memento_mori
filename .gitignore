@@ -35,3 +35,6 @@ memento_mori-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Local ciphertext blob store (dev/PoC stand-in for Files.com).
+/priv/ciphertext_store/
+

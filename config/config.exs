@@ -107,8 +107,10 @@ config :memento_mori, MementoMori.EventStore,
 config :memento_mori, start_projections: true
 
 # Blind-index secret for HMAC lookup columns (email_hash). Dev/test values live
-# in their env files; prod comes from CLOAK_HMAC_KEY at runtime.
+# in their env files; prod comes from CLOAK_HMAC_KEY at runtime. The algorithm
+# is read from app config (cloak_ecto ignores the `use` opt), so it lives here.
 config :memento_mori, MementoMori.Encryption.Vault.HashedHMAC,
+  algorithm: :sha256,
   secret: Base.decode64!("gVdT6eL0m7wS3rH2yq8pXcJk9nB4vZ1aQ5fW0uY3tPg=")
 
 # Import environment specific config. This must remain at the bottom

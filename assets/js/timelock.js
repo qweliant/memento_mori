@@ -1,36 +1,31 @@
 // drand timelock encryption in the browser.
 //
-// The whole point of the concept lives here: the secret is encrypted on the
+// The whole point of the concept lives here: a message is encrypted on the
 // device and locked to a future drand round. The server only ever receives the
 // armored ciphertext. Opening asks the drand network for that round's key and is
 // refused until the round has actually been emitted.
-import {
-  timelockEncrypt,
-  timelockDecrypt,
-  roundAt,
-  defaultChainInfo,
-  mainnetClient,
-  Buffer,
-} from "tlock-js"
+import {timelockEncrypt, timelockDecrypt, mainnetClient, Buffer} from "tlock-js"
 
 // One shared client (points at drand quicknet, the timelock-capable chain).
 const client = mainnetClient()
 
-export const TimelockSeal = {
+// Capsule artifact sealing. The round comes from the capsule's access contract
+// (data-round), so every artifact in a capsule locks to the one unlock moment.
+// Only the ciphertext is pushed to the server.
+export const CapsuleSeal = {
   mounted() {
+    const round = parseInt(this.el.dataset.round, 10)
     const btn = this.el.querySelector("[data-seal-submit]")
     btn.addEventListener("click", async () => {
-      const labelEl = this.el.querySelector("[data-seal-label]")
-      const secretEl = this.el.querySelector("[data-seal-secret]")
-      const durationEl = this.el.querySelector("[data-seal-duration]")
+      const filenameEl = this.el.querySelector("[data-seal-filename]")
+      const noteEl = this.el.querySelector("[data-seal-note]")
       const statusEl = this.el.querySelector("[data-seal-status]")
 
-      const label = (labelEl.value || "").trim()
-      const secret = secretEl.value || ""
-      const seconds = parseInt(durationEl.value, 10)
+      const note = noteEl.value || ""
+      const filename = (filenameEl.value || "").trim()
 
-      if (!secret.trim()) {
-        statusEl.textContent = "Write a message first."
+      if (!note.trim()) {
+        statusEl.textContent = "Write something to seal first."
         return
       }
 
@@ -38,19 +33,10 @@ export const TimelockSeal = {
       statusEl.textContent = "Sealing on your device…"
 
       try {
-        const unlockAt = new Date(Date.now() + seconds * 1000)
-        const round = roundAt(unlockAt.getTime(), defaultChainInfo)
-        const armored = await timelockEncrypt(round, Buffer.from(secret, "utf8"), client)
-
-        this.pushEvent("sealed", {
-          label: label,
-          armored_ciphertext: armored,
-          unlock_round: round,
-          unlock_at: unlockAt.toISOString(),
-        })
-
-        secretEl.value = ""
-        labelEl.value = ""
+        const armored = await timelockEncrypt(round, Buffer.from(note, "utf8"), client)
+        this.pushEvent("sealed", {filename: filename, armored_ciphertext: armored})
+        noteEl.value = ""
+        filenameEl.value = ""
         statusEl.textContent = ""
       } catch (err) {
         statusEl.textContent = "Could not seal: " + (err && err.message ? err.message : err)
@@ -61,6 +47,8 @@ export const TimelockSeal = {
   },
 }
 
+// Opens a timelock-sealed artifact: reads the ciphertext from the element named
+// in data-ciphertext-id and asks drand to decrypt. Refused until the round.
 export const TimelockOpen = {
   mounted() {
     this.el.addEventListener("click", async () => {

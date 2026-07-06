@@ -46,6 +46,9 @@ config :phoenix,
 # Run Oban jobs manually in tests (no queues/plugins running)
 config :memento_mori, Oban, testing: :manual
 
+# Keep ciphertext blobs out of priv during tests.
+config :memento_mori, :ciphertext_store_dir, Path.expand("../tmp/ciphertext_store_test", __DIR__)
+
 # In test, dispatch against an in-memory event store (fast, no Postgres event
 # store) and don't boot the Postgres event store or the async projection
 # handlers — the aggregate and hash chain are covered as pure functions.

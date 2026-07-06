@@ -59,8 +59,6 @@ defmodule MementoMoriWeb.Router do
       live "/capsules/new", CapsuleLive.Form, :new
       live "/capsules/:id", CapsuleLive.Show, :show
       live "/capsules/:id/edit", CapsuleLive.Form, :edit
-
-      live "/timelock", TimelockLive.Index, :index
     end
 
     post "/owners/update-password", OwnerSessionController, :update_password
