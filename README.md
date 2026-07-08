@@ -13,7 +13,7 @@
   <h3 align="center">Memento Mori</h3>
 
   <p align="center">
-    Leave letters, photos, and memories for the people you love — opened exactly when the time is right.
+    Leave something for the people you love, opened exactly when the time is right.
     <br />
     <a href="https://github.com/qweliant/memento_mori/issues">Report Bug</a>
     &middot;
@@ -69,8 +69,8 @@ Three promises hold the whole thing together:
   and handed on.
 
 > **This is an experimental proof of concept**, not a finished product or a legal instrument.
-> It's a working exploration of how digital inheritance *could* feel — warm, private, and
-> honest — rather than something to trust with your real estate today.
+> It's a working exploration of how digital inheritance could feel, not something to trust
+> with your real estate today.
 
 ### Built With
 
@@ -89,11 +89,11 @@ tamper-evident history of every capsule.
 
 ### Prerequisites
 
-- **Elixir 1.20+ / Erlang 27+** — easiest via [mise](https://mise.jdx.dev) (a `.mise.toml`
+- **Elixir 1.20+ / Erlang 27+**. Easiest via [mise](https://mise.jdx.dev) (a `.mise.toml`
   is checked in), or install them however you like.
 - **PostgreSQL 14+** running locally (the app uses two databases: one for data, one for the
   event store).
-- **Node.js + npm** — only to install the front-end crypto library (`tlock-js`) the first
+- **Node.js + npm**, only to install the front-end crypto library (`tlock-js`) the first
   time.
 
 ### Installation
@@ -112,8 +112,8 @@ mise install
 npm install --prefix assets
 ```
 
-Set up and run — `mix setup` fetches dependencies, creates both databases (data + event
-store), runs migrations, and builds assets:
+Set up and run. `mix setup` fetches dependencies, creates both databases (one for data, one
+for the event store), runs migrations, and builds assets:
 
 ```sh
 mix setup
@@ -139,34 +139,34 @@ For production you'll need to set `SECRET_KEY_BASE`, `DATABASE_URL`, `EVENTSTORE
 A single Phoenix app with two faces: a **console** where an owner builds and manages capsules,
 and a set of **public links** the people they name can use without ever making an account.
 
-- **Capsules are event-sourced.** Every change — drafted, sealed, triggered, released,
-  claimed — is an immutable event (Commanded + a Postgres event store). The lifecycle is a
+- **Capsules are event-sourced.** Every change (drafted, sealed, triggered, released, claimed)
+  is an immutable event, stored with Commanded and a Postgres event store. The lifecycle is a
   guarded state machine, so an empty capsule can't be sealed and nothing is released until
   it's genuinely allowed to be.
 - **A hash-chained history.** Those events are projected into a tamper-evident audit ledger
   (each entry hashes the one before it), so you can prove the record hasn't been altered.
-- **Two ways to open.** A capsule's "access contract" is either a **date** — the content key
-  is timelock-encrypted to a future [drand](https://drand.love) round, so the network itself
-  refuses to open it early — or a **condition** ("after I'm gone") confirmed by an N-of-M
-  quorum of trusted people.
+- **Two ways to open.** A capsule's "access contract" is either a **date** or a **condition**.
+  For a date, the content key is timelock-encrypted to a future [drand](https://drand.love)
+  round, so the network itself refuses to open it early. For a condition ("after I'm gone"),
+  an N-of-M quorum of trusted people has to confirm first.
 - **Encrypted on the device.** Files are encrypted in the browser before upload; the server
   only ever stores ciphertext. Sensitive fields (like emails) are encrypted at rest with a
   blind index for lookups.
 - **People without accounts.** Trustees (who confirm) and beneficiaries (who receive) act
-  through signed, single-purpose links — no login required.
+  through signed, single-purpose links. No login required.
 
 <!-- IMPACT -->
 
 ### Impact & Implications
 
 - **Peace of mind, kept simple.** The point is to make leaving something behind feel safe and
-  unhurried — not to hand you a cryptography homework assignment.
+  unhurried, not like a cryptography homework assignment.
 - **Dignity over imitation.** A deliberate line in the sand: Memento Mori preserves what a
   person actually made and hands it on. It will never synthesize a fake voice or chatbot of
   the deceased.
-- **Consent both ways.** The people who receive a capsule can accept, or quietly defer — an
-  inheritance should never ambush someone. And a trustee can only *confirm*; they can never
-  also receive, so no one can both trigger a release and collect from it.
+- **Consent both ways.** The people who receive a capsule can accept, or defer for later. An
+  inheritance shouldn't ambush anyone. A trustee can only confirm. They can never also
+  receive, so no one can both trigger a release and collect from it.
 - **Honest limits.** This is a proof of concept. It is not legal advice, not an estate plan,
   and not audited for production use. Today's access links are bearer links (whoever holds
   the link can act), and the "after I'm gone" flow is confirmed by trusted people rather than
@@ -178,7 +178,7 @@ and a set of **public links** the people they name can use without ever making a
 
 - [x] Owner accounts and the capsule console
 - [x] Fill a capsule, encrypt on the device, and seal it
-- [x] "Opens on a date" via drand timelock — provably can't open early
+- [x] "Opens on a date" via drand timelock, so it provably can't open early
 - [x] "Opens after I'm gone" via a trusted-people quorum, with a full release flow
 - [x] Tamper-evident, hash-chained history for every capsule
 - [x] Public links for trustees (confirm) and beneficiaries (receive)
@@ -207,8 +207,8 @@ and create. Any contributions you make are **greatly appreciated**.
 
 ## License
 
-This is an experimental proof of concept and is not yet released under an open-source license
-— all rights reserved for now. If you'd like to use or build on it, please open an issue.
+This is an experimental proof of concept and isn't released under an open-source license yet.
+All rights reserved for now. If you'd like to use or build on it, open an issue.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
