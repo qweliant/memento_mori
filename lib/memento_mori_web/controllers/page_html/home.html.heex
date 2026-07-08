@@ -1,10 +1,64 @@
 <Layouts.flash_group flash={@flash} />
 
+<header class="relative z-20">
+  <nav class="mx-auto flex max-w-6xl items-center gap-2 px-4 py-4 sm:px-6 lg:px-8">
+    <.link
+      href={~p"/"}
+      class="mr-auto flex items-center gap-2 font-semibold tracking-tight text-base-content"
+    >
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+        <.icon name="hero-clock" class="size-5" />
+      </span>
+      Memento&nbsp;Mori
+    </.link>
+
+    <Layouts.theme_toggle />
+
+    <%= if @current_scope do %>
+      <span class="hidden px-2 text-sm text-base-content/50 sm:inline">
+        {@current_scope.owner.email}
+      </span>
+      <.link
+        href={~p"/capsules"}
+        class="rounded-full px-4 py-2 text-sm font-medium text-base-content/80 transition hover:bg-base-200 hover:text-base-content"
+      >
+        Your capsules
+      </.link>
+      <.link
+        href={~p"/owners/settings"}
+        class="rounded-full px-4 py-2 text-sm font-medium text-base-content/80 transition hover:bg-base-200 hover:text-base-content"
+      >
+        Settings
+      </.link>
+      <.link
+        href={~p"/owners/log-out"}
+        method="delete"
+        class="rounded-full px-4 py-2 text-sm font-medium text-base-content/60 transition hover:bg-base-200 hover:text-base-content"
+      >
+        Log out
+      </.link>
+    <% else %>
+      <.link
+        href={~p"/owners/log-in"}
+        class="rounded-full px-4 py-2 text-sm font-medium text-base-content/80 transition hover:bg-base-200 hover:text-base-content"
+      >
+        Log in
+      </.link>
+      <.link
+        href={~p"/owners/register"}
+        class="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-content shadow-sm transition hover:-translate-y-0.5 hover:brightness-110"
+      >
+        Sign up
+      </.link>
+    <% end %>
+  </nav>
+</header>
+
 <div class="relative overflow-hidden">
   <%!-- soft, warm decorative glows --%>
-  <div class="pointer-events-none absolute -top-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-amber-300/30 blur-3xl dark:bg-amber-500/10">
+  <div class="pointer-events-none absolute -top-40 -left-32 h-[28rem] w-[28rem] rounded-full bg-warning/20 blur-3xl">
   </div>
-  <div class="pointer-events-none absolute top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-rose-300/30 blur-3xl dark:bg-rose-500/10">
+  <div class="pointer-events-none absolute top-32 -right-40 h-[32rem] w-[32rem] rounded-full bg-secondary/20 blur-3xl">
   </div>
   <div class="pointer-events-none absolute left-1/4 -bottom-40 h-[26rem] w-[26rem] rounded-full bg-primary/20 blur-3xl">
   </div>
@@ -71,7 +125,7 @@
     <div class="grid gap-6 sm:grid-cols-3">
       <div class="group relative rounded-3xl border border-base-300 bg-base-100/60 p-7 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
         <span class="absolute top-6 right-6 text-sm font-semibold text-base-content/30">01</span>
-        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300">
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-warning/15 text-warning">
           <.icon name="hero-lock-closed" class="size-6" />
         </div>
         <h3 class="text-lg font-semibold">Seal what matters</h3>
@@ -83,7 +137,7 @@
 
       <div class="group relative rounded-3xl border border-base-300 bg-base-100/60 p-7 text-left shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-md">
         <span class="absolute top-6 right-6 text-sm font-semibold text-base-content/30">02</span>
-        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300">
+        <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary/15 text-secondary">
           <.icon name="hero-clock" class="size-6" />
         </div>
         <h3 class="text-lg font-semibold">Set the moment</h3>

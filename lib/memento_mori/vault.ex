@@ -12,6 +12,7 @@ defmodule MementoMori.Vault do
   alias MementoMori.Vault.{
     AccessContract,
     Artifact,
+    Attestation,
     AuditChain,
     AuditEvent,
     Beneficiary,
@@ -408,6 +409,115 @@ defmodule MementoMori.Vault do
 
       _ ->
         false
+    end
+  end
+
+  ## Capability-gated flows (trustees attest, beneficiaries claim)
+  #
+  # These functions are reached only after a signed capability token has been
+  # verified (see `MementoMoriWeb.CapabilityToken`), so they take a capsule_id +
+  # party_id rather than an owner `Scope`: possession of the link is the authority.
+
+  @doc "Loads a trustee and their capsule for the attestation page."
+  def get_trustee_context(capsule_id, trustee_id) do
+    case Repo.get_by(Trustee, id: trustee_id, capsule_id: capsule_id) do
+      nil ->
+        :error
+
+      trustee ->
+        capsule = Capsule |> Repo.get(capsule_id) |> Repo.preload(:access_contract)
+
+        attested? =
+          Repo.exists?(
+            from(a in Attestation,
+              where: a.capsule_id == ^capsule_id and a.trustee_id == ^trustee_id
+            )
+          )
+
+        {:ok, %{trustee: trustee, capsule: capsule, attested?: attested?}}
+    end
+  end
+
+  @doc """
+  Records a trustee's attestation (idempotent) and confirms the trustee. The
+  quorum is the count of these against the contract threshold.
+  """
+  def record_attestation(capsule_id, trustee_id, attrs \\ %{}) do
+    case Repo.get_by(Trustee, id: trustee_id, capsule_id: capsule_id) do
+      nil ->
+        {:error, :not_found}
+
+      trustee ->
+        now = DateTime.utc_now() |> DateTime.truncate(:second)
+
+        %Attestation{}
+        |> Attestation.changeset(%{
+          capsule_id: capsule_id,
+          trustee_id: trustee_id,
+          note: attrs["note"],
+          attested_at: now
+        })
+        |> Repo.insert(on_conflict: :nothing, conflict_target: [:capsule_id, :trustee_id])
+
+        trustee |> Ecto.Changeset.change(status: :confirmed) |> Repo.update()
+        {:ok, :recorded}
+    end
+  end
+
+  @doc "Names of trustees who have attested for a capsule (the real quorum basis)."
+  def attested_trustee_names(capsule_id) do
+    Repo.all(
+      from t in Trustee,
+        join: a in Attestation,
+        on: a.trustee_id == t.id,
+        where: a.capsule_id == ^capsule_id,
+        order_by: [asc: t.name],
+        select: t.name
+    )
+  end
+
+  @doc "Loads a beneficiary and their capsule (with artifacts) for the claim portal."
+  def get_claim_context(capsule_id, beneficiary_id) do
+    case Repo.get_by(Beneficiary, id: beneficiary_id, capsule_id: capsule_id) do
+      nil ->
+        :error
+
+      beneficiary ->
+        capsule =
+          Capsule
+          |> Repo.get(capsule_id)
+          |> Repo.preload([
+            :access_contract,
+            artifacts: from(a in Artifact, order_by: [asc: a.inserted_at])
+          ])
+
+        {:ok, %{beneficiary: beneficiary, capsule: capsule}}
+    end
+  end
+
+  @doc "Records a beneficiary claiming a released capsule (dispatches ClaimCapsule)."
+  def record_beneficiary_claim(capsule_id, beneficiary_id) do
+    case Repo.get_by(Beneficiary, id: beneficiary_id, capsule_id: capsule_id) do
+      nil ->
+        {:error, :not_found}
+
+      beneficiary ->
+        with :ok <-
+               CommandedApp.dispatch(%Commands.ClaimCapsule{
+                 capsule_id: capsule_id,
+                 beneficiary_id: beneficiary_id
+               }) do
+          beneficiary |> Ecto.Changeset.change(status: :claimed) |> Repo.update()
+          {:ok, :claimed}
+        end
+    end
+  end
+
+  @doc "Beneficiary consent: defer the inheritance rather than accept it now."
+  def defer_beneficiary(capsule_id, beneficiary_id) do
+    case Repo.get_by(Beneficiary, id: beneficiary_id, capsule_id: capsule_id) do
+      nil -> {:error, :not_found}
+      beneficiary -> beneficiary |> Ecto.Changeset.change(status: :deferred) |> Repo.update()
     end
   end
 

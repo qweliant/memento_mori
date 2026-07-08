@@ -21,6 +21,14 @@ defmodule MementoMoriWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    # Public, capability-gated pages — the signed link is the authorization.
+    get "/attest/:token", AttestController, :show
+    post "/attest/:token", AttestController, :create
+
+    live_session :public do
+      live "/claim/:token", ClaimLive, :show
+    end
   end
 
   # Other scopes may use custom stacks.

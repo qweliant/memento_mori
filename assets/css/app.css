@@ -1,5 +1,17 @@
-/* See the Tailwind configuration guide for advanced usage
-   https://tailwindcss.com/docs/configuration */
+/* ───────────────────────────────────────────────────────────────────────
+   Memento Mori — application CSS
+
+   • Fonts: Newsreader (serif display) + IBM Plex Sans/Mono, imported up top.
+   • daisyUI "dark" theme retuned to the mock's palette and made the default
+     (prefersdark + default:true). The light theme is kept for the toggle.
+   • A component layer (.mm-*) that reproduces the mock's bespoke pieces:
+     the sidebar shell, capsule cards, lifecycle stepper, badges/pills,
+     access-contract rows, audit ledger, envelope blockquote.
+   Stock daisyUI components (inputs, buttons, tables, selects) inherit the
+   retuned tokens automatically, so forms already look right.
+   ─────────────────────────────────────────────────────────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 @import "tailwindcss" source(none);
 @import "phoenix-colocated/memento_mori/colocated.css";
@@ -9,70 +21,65 @@
 /* Required for Tailwind to automatically pick up changes in colocated CSS files in dev */
 @source "../../_build/dev/phoenix-colocated/memento_mori/*/";
 
-/* A Tailwind plugin that makes "hero-#{ICON}" classes available.
-   The heroicons installation itself is managed by your mix.exs */
+/* A Tailwind plugin that makes "hero-#{ICON}" classes available. */
 @plugin "../vendor/heroicons";
 
-/* daisyUI Tailwind Plugin. You can update this file by fetching the latest version with:
-   curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui.js
-   Make sure to look at the daisyUI changelog: https://daisyui.com/docs/changelog/ */
+/* daisyUI Tailwind Plugin. */
 @plugin "../vendor/daisyui" {
   themes: false;
 }
 
-/* daisyUI theme plugin. You can update this file by fetching the latest version with:
-  curl -sLO https://github.com/saadeghi/daisyui/releases/latest/download/daisyui-theme.js
-  We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
-  on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
+/* ── Dark theme — the mock's palette. Default + prefers-dark. ────────────── */
 @plugin "../vendor/daisyui-theme" {
   name: "dark";
-  default: false;
+  default: true;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: oklch(30.33% 0.016 252.42);
-  --color-base-200: oklch(25.26% 0.014 253.1);
-  --color-base-300: oklch(20.15% 0.012 254.09);
-  --color-base-content: oklch(97.807% 0.029 256.847);
-  --color-primary: oklch(58% 0.233 277.117);
-  --color-primary-content: oklch(96% 0.018 272.314);
-  --color-secondary: oklch(58% 0.233 277.117);
-  --color-secondary-content: oklch(96% 0.018 272.314);
-  --color-accent: oklch(60% 0.25 292.717);
-  --color-accent-content: oklch(96% 0.016 293.756);
-  --color-neutral: oklch(37% 0.044 257.287);
-  --color-neutral-content: oklch(98% 0.003 247.858);
-  --color-info: oklch(58% 0.158 241.966);
-  --color-info-content: oklch(97% 0.013 236.62);
-  --color-success: oklch(60% 0.118 184.704);
-  --color-success-content: oklch(98% 0.014 180.72);
-  --color-warning: oklch(66% 0.179 58.318);
-  --color-warning-content: oklch(98% 0.022 95.277);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.21875rem;
-  --size-field: 0.21875rem;
-  --border: 1.5px;
-  --depth: 1;
+  --color-base-100: oklch(19% 0.006 268);   /* #131418  card / surface   */
+  --color-base-200: oklch(22% 0.006 268);   /* #181a1f  raised input     */
+  --color-base-300: oklch(26% 0.007 268);   /* #1e2127  deepest chip     */
+  --color-base-content: oklch(93% 0.004 268);/* #e9eaed  text            */
+  --color-primary: oklch(58% 0.19 275);     /* #6265ea  indigo           */
+  --color-primary-content: oklch(99% 0 0);
+  --color-secondary: oklch(63% 0.18 293);   /* #9070ef  violet           */
+  --color-secondary-content: oklch(98% 0.01 293);
+  --color-accent: oklch(63% 0.18 293);      /* violet                    */
+  --color-accent-content: oklch(98% 0.01 293);
+  --color-neutral: oklch(45% 0.01 268);     /* #545863  faint            */
+  --color-neutral-content: oklch(93% 0.004 268);
+  --color-info: oklch(80% 0.10 205);        /* #5cd1e3  cyan             */
+  --color-info-content: oklch(22% 0.03 205);
+  --color-success: oklch(78% 0.10 190);     /* cyan-green                */
+  --color-success-content: oklch(22% 0.03 190);
+  --color-warning: oklch(72% 0.09 75);      /* #c99a52  amber            */
+  --color-warning-content: oklch(22% 0.03 75);
+  --color-error: oklch(58% 0.14 27);        /* #c1584d  red              */
+  --color-error-content: oklch(97% 0.01 27);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.625rem;   /* 10px inputs — matches the mock */
+  --radius-box: 1rem;         /* 16px cards  — matches the mock */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
   --noise: 0;
 }
 
+/* ── Light theme — kept for the toggle, no longer default. ──────────────── */
 @plugin "../vendor/daisyui-theme" {
   name: "light";
-  default: true;
+  default: false;
   prefersdark: false;
   color-scheme: "light";
   --color-base-100: oklch(98% 0 0);
   --color-base-200: oklch(96% 0.001 286.375);
   --color-base-300: oklch(92% 0.004 286.32);
   --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: oklch(70% 0.213 47.604);
+  --color-primary: oklch(58% 0.19 275);
   --color-primary-content: oklch(98% 0.016 73.684);
-  --color-secondary: oklch(55% 0.027 264.364);
+  --color-secondary: oklch(63% 0.18 293);
   --color-secondary-content: oklch(98% 0.002 247.839);
-  --color-accent: oklch(0% 0 0);
+  --color-accent: oklch(63% 0.18 293);
   --color-accent-content: oklch(100% 0 0);
   --color-neutral: oklch(44% 0.017 285.786);
   --color-neutral-content: oklch(98% 0 0);
@@ -84,13 +91,13 @@
   --color-warning-content: oklch(98% 0.022 95.277);
   --color-error: oklch(58% 0.253 17.585);
   --color-error-content: oklch(96% 0.015 12.422);
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.21875rem;
-  --size-field: 0.21875rem;
-  --border: 1.5px;
-  --depth: 1;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.625rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
   --noise: 0;
 }
 
@@ -99,10 +106,172 @@
 @custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
 @custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
 
-/* Use the data attribute for dark mode  */
+/* Use the data attribute for dark mode */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 /* Make LiveView wrapper divs transparent for layout */
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
-/* This file is for your main application CSS */
+/* ───────────────────────────────────────────────────────────────────────
+   Memento Mori component layer — exact values lifted from the design mock.
+   These are plain classes (not utilities) so they read cleanly in heex.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Design tokens mapped onto daisyUI's theme variables, so every .mm-* class
+   follows the active theme (light/dark) instead of being hardcoded to dark.
+   daisyUI is the single source of truth for color; retune a theme above and the
+   whole console retunes with it. */
+:root {
+  --mm-bg:     var(--color-base-100);
+  --mm-panel:  var(--color-base-200);
+  --mm-panel2: var(--color-base-300);
+  --mm-panel3: var(--color-base-300);
+  --mm-text:   var(--color-base-content);
+  --mm-dim:    color-mix(in oklch, var(--color-base-content) 65%, transparent);
+  --mm-faint:  color-mix(in oklch, var(--color-base-content) 42%, transparent);
+  --mm-line:   color-mix(in oklch, var(--color-base-content) 10%, transparent);
+  --mm-line2:  color-mix(in oklch, var(--color-base-content) 18%, transparent);
+  --mm-indigo: var(--color-primary);
+  --mm-violet: var(--color-secondary);
+  --mm-amber:  var(--color-warning);
+  --mm-cyan:   var(--color-info);
+  --mm-red:    var(--color-error);
+  --mm-indigo-dim: color-mix(in oklch, var(--color-primary) 16%, transparent);
+  --mm-violet-dim: color-mix(in oklch, var(--color-secondary) 16%, transparent);
+  --mm-amber-dim:  color-mix(in oklch, var(--color-warning) 16%, transparent);
+  --mm-cyan-dim:   color-mix(in oklch, var(--color-info) 16%, transparent);
+  --mm-red-dim:    color-mix(in oklch, var(--color-error) 16%, transparent);
+  --mm-serif: "Newsreader", Georgia, serif;
+  --mm-sans:  "IBM Plex Sans", system-ui, sans-serif;
+  --mm-mono:  "IBM Plex Mono", ui-monospace, monospace;
+}
+
+html, body { font-family: var(--mm-sans); }
+body { background: var(--mm-bg); color: var(--mm-text); }
+
+.mm-serif { font-family: var(--mm-serif); }
+.mm-mono  { font-family: var(--mm-mono); }
+
+/* App shell ───────────────────────────────────────────────────────────── */
+.mm-shell { display: flex; min-height: 100vh;
+  background: radial-gradient(ellipse 1200px 800px at 15% 0%, rgba(98,101,234,.05), transparent 60%), var(--mm-bg); }
+.mm-sidebar { width: 232px; flex-shrink: 0; border-right: 1px solid var(--mm-line);
+  padding: 26px 16px; display: flex; flex-direction: column; gap: 24px;
+  position: sticky; top: 0; height: 100vh; }
+.mm-brand-mark { font-family: var(--mm-serif); font-size: 16px; letter-spacing: .14em;
+  font-style: italic; font-weight: 500; }
+.mm-brand-sub { font-family: var(--mm-mono); font-size: 10.5px; color: var(--mm-faint);
+  letter-spacing: .12em; margin-top: 3px; }
+.mm-nav { display: flex; flex-direction: column; gap: 2px; }
+.mm-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px;
+  border-radius: 9px; color: var(--mm-dim); font-size: 13.5px; font-weight: 500;
+  border-left: 2px solid transparent; transition: all .15s; }
+.mm-nav-item:hover { color: var(--mm-text); background: var(--mm-panel2); }
+.mm-nav-item.active { color: var(--mm-text); background: var(--mm-indigo-dim);
+  border-left: 2px solid var(--mm-indigo); }
+.mm-foot { margin-top: auto; padding: 14px 10px; border-top: 1px solid var(--mm-line); }
+.mm-owner-name { font-size: 12.5px; font-weight: 600; }
+.mm-owner-meta { font-family: var(--mm-mono); font-size: 10.5px; color: var(--mm-faint);
+  margin-top: 2px; letter-spacing: .02em; }
+.mm-foot-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+  font-size: 11.5px; color: var(--mm-faint); transition: color .15s; }
+.mm-foot-link:hover { color: var(--mm-text); }
+.mm-main { flex: 1; min-width: 0; padding: 40px 48px 80px; max-width: 1180px; }
+
+/* Cards ───────────────────────────────────────────────────────────────── */
+.mm-card { background: var(--mm-panel); border: 1px solid var(--mm-line);
+  border-radius: 16px; padding: 20px; transition: border-color .15s, transform .15s; }
+.mm-card:hover { border-color: var(--mm-line2); transform: translateY(-1px); }
+.mm-card-title { font-family: var(--mm-serif); font-size: 17px; font-weight: 500; line-height: 1.3; }
+
+/* Badges & pills ──────────────────────────────────────────────────────── */
+.mm-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px;
+  font-weight: 600; letter-spacing: .03em; padding: 4px 9px; border-radius: 100px;
+  text-transform: capitalize; }
+.mm-tier-low     { background: var(--mm-cyan-dim);  color: var(--mm-cyan); }
+.mm-tier-medium  { background: var(--mm-amber-dim); color: var(--mm-amber); }
+.mm-tier-high    { background: var(--mm-red-dim);   color: var(--mm-red); }
+.mm-state-draft     { background: var(--mm-panel3);     color: var(--mm-dim); }
+.mm-state-sealed    { background: var(--mm-indigo-dim); color: var(--mm-indigo); }
+.mm-state-triggered { background: var(--mm-amber-dim);  color: var(--mm-amber); }
+.mm-state-verifying { background: var(--mm-amber-dim);  color: var(--mm-amber); }
+.mm-state-released  { background: var(--mm-cyan-dim);   color: var(--mm-cyan); }
+.mm-state-withheld  { background: var(--mm-red-dim);    color: var(--mm-red); }
+.mm-state-claimed   { background: var(--mm-violet-dim); color: var(--mm-violet); }
+.mm-pill { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 100px;
+  text-transform: capitalize; white-space: nowrap; }
+.mm-st-confirmed, .mm-st-claimed { background: var(--mm-cyan-dim);  color: var(--mm-cyan); }
+.mm-st-invited, .mm-st-pending   { background: var(--mm-panel3);    color: var(--mm-dim); }
+.mm-st-notified                  { background: var(--mm-amber-dim); color: var(--mm-amber); }
+.mm-st-deferred                  { background: var(--mm-violet-dim);color: var(--mm-violet); }
+.mm-st-revoked, .mm-st-declined  { background: var(--mm-red-dim);   color: var(--mm-red); }
+
+/* Panels / labels / key-value rows ────────────────────────────────────── */
+.mm-panel { background: var(--mm-panel); border: 1px solid var(--mm-line);
+  border-radius: 16px; padding: 22px 24px; }
+.mm-section-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--mm-faint); font-weight: 600; margin-bottom: 14px; display: flex;
+  align-items: center; gap: 8px; }
+.mm-kv { display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  padding: 8px 0; border-bottom: 1px solid var(--mm-line); font-size: 13px; }
+.mm-kv:last-child { border-bottom: none; }
+.mm-kv > span { color: var(--mm-dim); }
+.mm-kv > b { font-weight: 500; text-align: right; }
+.mm-principle { margin-top: 14px; font-size: 11.5px; color: var(--mm-faint);
+  font-style: italic; line-height: 1.55; font-family: var(--mm-serif); }
+
+/* Lifecycle stepper ───────────────────────────────────────────────────── */
+.mm-stepper { display: flex; align-items: flex-start; margin: 6px 0 26px; }
+.mm-step { display: flex; flex-direction: column; align-items: center; gap: 8px;
+  flex: 1; position: relative; }
+.mm-step-dot { width: 11px; height: 11px; border-radius: 50%; background: var(--mm-panel3);
+  border: 2px solid var(--mm-line2); z-index: 1; }
+.mm-step.done .mm-step-dot { background: var(--mm-indigo); border-color: var(--mm-indigo); }
+.mm-step.current .mm-step-dot { background: var(--mm-amber); border-color: var(--mm-amber);
+  box-shadow: 0 0 0 4px var(--mm-amber-dim); }
+.mm-step-label { font-size: 11px; color: var(--mm-faint); letter-spacing: .02em; text-align: center; }
+.mm-step.done .mm-step-label, .mm-step.current .mm-step-label { color: var(--mm-dim); }
+.mm-step-line { position: absolute; top: 5px; left: 50%; width: 100%; height: 1px;
+  background: var(--mm-line2); z-index: 0; }
+.mm-step.done .mm-step-line { background: var(--mm-indigo); }
+.mm-step:last-child .mm-step-line { display: none; }
+
+/* Party rows (trustees / beneficiaries) ───────────────────────────────── */
+.mm-party-row { display: flex; align-items: center; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid var(--mm-line); }
+.mm-party-row:last-child { border-bottom: none; }
+.mm-party-name { font-size: 13px; font-weight: 500; }
+.mm-party-role { font-size: 11px; color: var(--mm-faint); margin-top: 1px; }
+
+/* Verify badge + progress ─────────────────────────────────────────────── */
+.mm-verify-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px;
+  color: var(--mm-cyan); background: var(--mm-cyan-dim); padding: 5px 11px;
+  border-radius: 100px; font-weight: 600; }
+.mm-progress { height: 6px; background: var(--mm-panel3); border-radius: 100px;
+  overflow: hidden; margin: 8px 0 16px; }
+.mm-progress > i { display: block; height: 100%; background: var(--mm-amber); }
+
+/* Artifacts + envelope ────────────────────────────────────────────────── */
+.mm-artifact { border: 1px solid var(--mm-line); border-radius: 13px; padding: 16px 18px;
+  background: var(--mm-panel2); }
+.mm-chip { font-size: 10px; padding: 2px 7px; border-radius: 5px;
+  background: var(--mm-panel3); color: var(--mm-faint); font-family: var(--mm-mono); }
+.mm-chip-prov { background: var(--mm-cyan-dim); color: var(--mm-cyan); }
+.mm-envelope { margin-top: 12px; padding: 11px 14px; border-left: 2px solid var(--mm-line2);
+  font-family: var(--mm-serif); font-style: italic; font-size: 13.5px; color: var(--mm-dim);
+  line-height: 1.55; }
+
+/* Audit ledger ────────────────────────────────────────────────────────── */
+.mm-ledger-row { display: flex; gap: 14px; padding: 11px 0; align-items: baseline;
+  border-bottom: 1px solid var(--mm-line); }
+.mm-ledger-row:last-child { border-bottom: none; }
+.mm-ledger-ver { font-family: var(--mm-mono); font-size: 11px; color: var(--mm-faint);
+  width: 26px; flex-shrink: 0; }
+.mm-ledger-event { font-size: 13px; font-weight: 500; }
+.mm-ledger-actor { font-size: 11.5px; color: var(--mm-dim); margin-top: 2px; }
+.mm-hash { font-family: var(--mm-mono); font-size: 10px; color: var(--mm-faint); white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .mm-sidebar { display: none; }
+  .mm-main { padding: 28px 20px 60px; }
+}

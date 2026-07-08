@@ -24,9 +24,9 @@
           }
         };
         if (!document.documentElement.hasAttribute("data-theme")) {
-          setTheme(localStorage.getItem("phx:theme") || "system");
+          setTheme(localStorage.getItem("phx:theme") || "dark");
         }
-        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "system"));
+        window.addEventListener("storage", (e) => e.key === "phx:theme" && setTheme(e.newValue || "dark"));
         
         window.addEventListener("phx:set-theme", (e) => setTheme(e.target.dataset.phxTheme));
 
@@ -39,59 +39,8 @@
     </script>
   </head>
   <body>
-    <header class="relative z-20">
-      <nav class="mx-auto flex max-w-6xl items-center gap-2 px-4 py-4 sm:px-6 lg:px-8">
-        <.link
-          href={~p"/"}
-          class="mr-auto flex items-center gap-2 font-semibold tracking-tight text-base-content"
-        >
-          <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <.icon name="hero-clock" class="size-5" />
-          </span>
-          Memento&nbsp;Mori
-        </.link>
-
-        <.theme_toggle />
-
-        <%= if @current_scope do %>
-          <span class="hidden px-2 text-sm text-base-content/50 sm:inline">
-            {@current_scope.owner.email}
-          </span>
-          <.link
-            href={~p"/capsules"}
-            class="rounded-full px-4 py-2 text-sm font-medium text-base-content/80 transition hover:bg-base-200 hover:text-base-content"
-          >
-            Your capsules
-          </.link>
-          <.link
-            href={~p"/owners/settings"}
-            class="rounded-full px-4 py-2 text-sm font-medium text-base-content/80 transition hover:bg-base-200 hover:text-base-content"
-          >
-            Settings
-          </.link>
-          <.link
-            href={~p"/owners/log-out"}
-            method="delete"
-            class="rounded-full px-4 py-2 text-sm font-medium text-base-content/60 transition hover:bg-base-200 hover:text-base-content"
-          >
-            Log out
-          </.link>
-        <% else %>
-          <.link
-            href={~p"/owners/log-in"}
-            class="rounded-full px-4 py-2 text-sm font-medium text-base-content/80 transition hover:bg-base-200 hover:text-base-content"
-          >
-            Log in
-          </.link>
-          <.link
-            href={~p"/owners/register"}
-            class="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-content shadow-sm transition hover:-translate-y-0.5 hover:brightness-110"
-          >
-            Sign up
-          </.link>
-        <% end %>
-      </nav>
-    </header>
+    <%!-- Chrome lives with each surface: the console shell (Layouts.app) for
+         authenticated LiveViews, and the public home page's own top nav. --%>
     {@inner_content}
   </body>
 </html>

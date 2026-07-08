@@ -54,14 +54,15 @@ defmodule MementoMoriWeb.CapsuleLiveTest do
       assert html =~ "some title"
     end
 
-    test "updates capsule in listing", %{conn: conn, capsule: capsule} do
-      {:ok, index_live, _html} = live(conn, ~p"/capsules")
+    test "editing a capsule reflects in the listing", %{conn: conn, capsule: capsule} do
+      # Edit now lives on the capsule console (Show), reached from a card.
+      {:ok, show_live, _html} = live(conn, ~p"/capsules/#{capsule}")
 
       assert {:ok, form_live, _html} =
-               index_live
-               |> element("#capsules-#{capsule.id} a", "Edit")
+               show_live
+               |> element("a", "Edit")
                |> render_click()
-               |> follow_redirect(conn, ~p"/capsules/#{capsule}/edit")
+               |> follow_redirect(conn, ~p"/capsules/#{capsule}/edit?return_to=show")
 
       assert render(form_live) =~ "Edit Capsule"
 
@@ -69,21 +70,26 @@ defmodule MementoMoriWeb.CapsuleLiveTest do
              |> form("#capsule-form", capsule: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      assert {:ok, index_live, _html} =
+      assert {:ok, _show_live, _html} =
                form_live
                |> form("#capsule-form", capsule: @update_attrs)
                |> render_submit()
-               |> follow_redirect(conn, ~p"/capsules")
+               |> follow_redirect(conn, ~p"/capsules/#{capsule}")
 
-      html = render(index_live)
-      assert html =~ "Capsule updated successfully"
+      {:ok, _index_live, html} = live(conn, ~p"/capsules")
       assert html =~ "some updated title"
     end
 
-    test "deletes capsule in listing", %{conn: conn, capsule: capsule} do
-      {:ok, index_live, _html} = live(conn, ~p"/capsules")
+    test "deletes a capsule from the console", %{conn: conn, capsule: capsule} do
+      # Delete now lives on the capsule console (Show), not the listing.
+      {:ok, show_live, _html} = live(conn, ~p"/capsules/#{capsule}")
 
-      assert index_live |> element("#capsules-#{capsule.id} a", "Delete") |> render_click()
+      assert {:ok, index_live, _html} =
+               show_live
+               |> element("a", "Delete")
+               |> render_click()
+               |> follow_redirect(conn, ~p"/capsules")
+
       refute has_element?(index_live, "#capsules-#{capsule.id}")
     end
   end

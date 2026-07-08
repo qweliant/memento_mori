@@ -425,6 +425,93 @@ defmodule MementoMoriWeb.CoreComponents do
     """
   end
 
+  @doc "Sensitivity-tier badge. tier is :low | :medium | :high."
+  attr :tier, :atom, required: true
+
+  def tier_badge(assigns) do
+    ~H"""
+    <span class={["mm-badge", "mm-tier-#{@tier}"]}>{@tier}</span>
+    """
+  end
+
+  @doc "Lifecycle-state badge. state is one of the capsule states."
+  attr :state, :atom, required: true
+
+  def state_badge(assigns) do
+    ~H"""
+    <span class={["mm-badge", "mm-state-#{@state}"]}>{@state}</span>
+    """
+  end
+
+  @doc "Trustee/beneficiary status pill, e.g. :confirmed, :pending, :notified."
+  attr :status, :atom, required: true
+
+  def status_pill(assigns) do
+    ~H"""
+    <span class={["mm-pill", "mm-st-#{@status}"]}>{@status}</span>
+    """
+  end
+
+  @doc """
+  Section header used inside detail panels.
+
+      <.mm_section label="Access contract">…</.mm_section>
+  """
+  attr :label, :string, required: true
+  slot :aside
+  slot :inner_block, required: true
+
+  def mm_section(assigns) do
+    ~H"""
+    <section class="mm-panel mb-4">
+      <div class="mm-section-label">
+        {@label}
+        <span :if={@aside != []} class="ml-auto">{render_slot(@aside)}</span>
+      </div>
+      {render_slot(@inner_block)}
+    </section>
+    """
+  end
+
+  @doc """
+  Lifecycle stepper. `state` is the capsule's current state atom; the stepper
+  marks everything before it done and the state itself current. `:withheld`
+  is a terminal off-path branch and is shown as an error note by the caller.
+  """
+  attr :state, :atom, required: true
+
+  @mm_steps [
+    {:draft, "Draft"},
+    {:sealed, "Sealed"},
+    {:triggered, "Triggered"},
+    {:verifying, "Verifying"},
+    {:released, "Released"},
+    {:claimed, "Claimed"}
+  ]
+
+  def lifecycle_stepper(assigns) do
+    order = Enum.map(@mm_steps, &elem(&1, 0))
+    current_idx = Enum.find_index(order, &(&1 == assigns.state)) || 0
+    assigns = assign(assigns, steps: @mm_steps, current_idx: current_idx)
+
+    ~H"""
+    <div class="mm-stepper">
+      <div
+        :for={{{_key, label}, i} <- Enum.with_index(@steps)}
+        class={[
+          "mm-step",
+          i < @current_idx && "done",
+          i == @current_idx && "current"
+        ]}
+      >
+        <div class="mm-step-line"></div>
+        <div class="mm-step-dot"></div>
+        <div class="mm-step-label">{label}</div>
+      </div>
+    </div>
+    """
+  end
+
   @doc """
   Renders a [Heroicon](https://heroicons.com).
 
