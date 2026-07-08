@@ -80,8 +80,8 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
                 </div>
               </div>
               <p class="mm-principle">
-                The content key is timelock-encrypted to a future drand round. No quorum,
-                no operator trust — the network refuses the key until the round is emitted.
+                Locked to a set time by a public clock the whole internet shares. Nobody can open
+                it early. Not even us.
               </p>
             </section>
           <% else %>
@@ -107,8 +107,8 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
                 </div>
               </div>
               <p class="mm-principle">
-                Correctness over availability — a false release is irreversible, so release
-                is only reachable once the quorum attests. Doubt withholds.
+                Opening can't be undone, so it only happens once enough trusted people confirm.
+                When in doubt, it stays shut.
               </p>
             </section>
           <% end %>
@@ -261,8 +261,8 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
           </div>
         </div>
         <p class="mm-principle">
-          A trustee attests; a beneficiary receives — and the two can never be the same
-          person. That wall stops an heir from both faking the trigger and collecting the archive.
+          The people who confirm and the people who receive are never the same. That way no one
+          can both start the opening and collect what's inside.
         </p>
         <form :if={@capsule.state in [:draft, :sealed]} phx-submit="add_beneficiary" class="flex flex-col gap-2 sm:flex-row mt-3">
           <input name="name" placeholder="Name" required class="input flex-1" />
@@ -314,7 +314,7 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
         </div>
         <p class="flex items-center gap-1.5 text-xs text-base-content/45 mt-3">
           <.icon name="hero-lock-closed" class="size-3.5" />
-          Encrypted client-side before upload — the operator only ever holds ciphertext.
+          Locked on your device before it uploads. We only ever hold the sealed version.
         </p>
       </section>
 

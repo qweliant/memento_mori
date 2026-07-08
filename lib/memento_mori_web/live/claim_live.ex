@@ -78,7 +78,7 @@ defmodule MementoMoriWeb.ClaimLive do
       </div>
       <h1 class="text-2xl font-semibold tracking-tight">This link isn't valid</h1>
       <p class="mt-3 text-base-content/70">
-        The claim link is invalid or has expired. Ask the capsule's executor for a fresh one.
+        This link is invalid or has expired. Ask whoever sent it for a new one.
       </p>
     </.shell>
     """
@@ -92,8 +92,8 @@ defmodule MementoMoriWeb.ClaimLive do
       </div>
       <h1 class="text-2xl font-semibold tracking-tight">Something was left for you</h1>
       <p class="mt-3 text-base-content/70">
-        {@beneficiary.name}, the capsule
-        <span class="font-medium text-base-content">“{@capsule.title}”</span> names you.
+        {@beneficiary.name}, <span class="font-medium text-base-content">“{@capsule.title}”</span>
+        was left for you.
       </p>
 
       <%= if @capsule.state in [:released, :claimed] do %>
@@ -139,17 +139,17 @@ defmodule MementoMoriWeb.ClaimLive do
                 phx-click="defer"
                 class="rounded-full border border-base-300 px-6 py-3 font-semibold text-base-content/70 transition hover:bg-base-200"
               >
-                Not yet — hold for me
+                Not yet, hold for me
               </button>
             </div>
             <p class="mt-4 text-xs text-base-content/50">
-              An inheritance should never ambush you. Accept when you're ready, or defer.
+              An inheritance shouldn't ambush anyone. Accept whenever you're ready, or hold it for later.
             </p>
           <% end %>
         </div>
       <% else %>
         <div class="mt-6 rounded-xl border border-base-300 bg-base-100/60 px-4 py-3 text-sm text-base-content/60">
-          Not yet available. This capsule opens only once its trigger has been verified.
+          This isn't open yet. It'll be here when the time comes.
         </div>
       <% end %>
     </.shell>
@@ -167,7 +167,7 @@ defmodule MementoMoriWeb.ClaimLive do
       <div class="w-full rounded-3xl border border-base-300 bg-base-100/70 p-8 shadow-sm backdrop-blur">
         {render_slot(@inner_block)}
       </div>
-      <p class="mt-6 text-xs text-base-content/40">Memento Mori · a quiet place for what outlives us</p>
+      <p class="mt-6 text-xs text-base-content/40">Memento Mori · for the people you love</p>
     </main>
     """
   end

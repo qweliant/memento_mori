@@ -22,6 +22,6 @@ defmodule MementoMoriWeb.ClaimLiveTest do
     {:ok, _live, html} = live(conn, ~p"/claim/#{token}")
     assert html =~ "Something was left for you"
     # a draft capsule isn't released, so nothing is available yet
-    assert html =~ "Not yet available"
+    assert html =~ "when the time comes"
   end
 end
