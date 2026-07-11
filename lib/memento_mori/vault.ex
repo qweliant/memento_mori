@@ -12,6 +12,7 @@ defmodule MementoMori.Vault do
   alias MementoMori.Vault.{
     AccessContract,
     Artifact,
+    ArtifactKind,
     Attestation,
     AuditChain,
     AuditEvent,
@@ -22,7 +23,17 @@ defmodule MementoMori.Vault do
     Trustee
   }
 
+  alias MementoMori.Accounts
   alias MementoMori.Accounts.Scope
+
+  # Illustrative drafts a new owner lands on, so the app is never an empty room.
+  # Titles hint at the kinds people actually vault; they're plain drafts with no
+  # contract yet — an invitation to set one, not finished capsules.
+  @starter_capsules [
+    %{title: "A letter for when I'm gone", sensitivity_tier: :medium},
+    %{title: "Where everything is — accounts, docs, the 1040", sensitivity_tier: :medium},
+    %{title: "The master password (don't panic)", sensitivity_tier: :high}
+  ]
 
   @doc """
   Subscribes to scoped notifications about any capsule changes.
@@ -60,16 +71,29 @@ defmodule MementoMori.Vault do
   end
 
   @doc """
+  Seeds an owner's starter capsules the first time, then never again (guarded by
+  `owner.starters_seeded_at`). Safe to call on every visit — a no-op once stamped,
+  so a deleted starter stays deleted.
+  """
+  def ensure_starter_capsules(%Scope{owner: %{starters_seeded_at: nil}} = scope) do
+    Enum.each(@starter_capsules, &create_capsule(scope, &1))
+    Accounts.mark_starters_seeded(scope.owner)
+    :ok
+  end
+
+  def ensure_starter_capsules(%Scope{}), do: :ok
+
+  @doc """
   Gets a single capsule.
 
   Raises `Ecto.NoResultsError` if the Capsule does not exist.
 
   ## Examples
 
-      iex> get_capsule!(scope, 123)
+      iex> get_capsule!(scope, "the-one-with-the-seed-phrase")
       %Capsule{}
 
-      iex> get_capsule!(scope, 456)
+      iex> get_capsule!(scope, "a-capsule-that-isnt-yours")
       ** (Ecto.NoResultsError)
 
   """
@@ -82,10 +106,10 @@ defmodule MementoMori.Vault do
 
   ## Examples
 
-      iex> create_capsule(scope, %{field: value})
+      iex> create_capsule(scope, %{title: "Read this when I'm gone", sensitivity_tier: :high})
       {:ok, %Capsule{}}
 
-      iex> create_capsule(scope, %{field: bad_value})
+      iex> create_capsule(scope, %{title: "", sensitivity_tier: :low})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -116,10 +140,10 @@ defmodule MementoMori.Vault do
 
   ## Examples
 
-      iex> update_capsule(scope, capsule, %{field: new_value})
+      iex> update_capsule(scope, capsule, %{title: "The wifi password and other final wisdom"})
       {:ok, %Capsule{}}
 
-      iex> update_capsule(scope, capsule, %{field: bad_value})
+      iex> update_capsule(scope, capsule, %{sensitivity_tier: :not_a_real_tier})
       {:error, %Ecto.Changeset{}}
 
   """
@@ -294,11 +318,14 @@ defmodule MementoMori.Vault do
 
     ciphertext = Map.fetch!(attrs, "armored_ciphertext")
     filename = attrs |> Map.get("filename", "") |> normalize_filename()
+    kind = parse_kind(attrs["kind"])
     ref = CiphertextStore.put!(ciphertext)
     artifact_id = Ecto.UUID.generate()
     checked_at = DateTime.utc_now() |> DateTime.truncate(:second)
 
     artifact_attrs = %{
+      kind: kind,
+      attributes: Map.get(attrs, "attributes", %{}),
       filename: filename,
       media_type: "text/plain",
       byte_size: byte_size(ciphertext),
@@ -317,15 +344,40 @@ defmodule MementoMori.Vault do
            %Artifact{id: artifact_id}
            |> Artifact.changeset(artifact_attrs)
            |> Repo.insert(),
+         {:ok, _capsule} <- raise_sensitivity_floor(scope, capsule, kind),
          :ok <-
            CommandedApp.dispatch(%Commands.AddArtifact{
              capsule_id: capsule.id,
              artifact_id: artifact_id,
+             kind: kind,
              filename: filename,
              ciphertext_ref: ref
            }) do
       {:ok, artifact}
     end
+  end
+
+  # An artifact's kind sets a *floor* on its capsule's sensitivity: dropping a
+  # will or a seed phrase into a `:low` capsule quietly ratchets it up. The owner
+  # can raise the tier further, but never back below what its contents demand.
+  # sensitivity_tier is owner-facing read-model state (see create_capsule), so we
+  # bump the row directly rather than through the aggregate.
+  defp raise_sensitivity_floor(%Scope{} = scope, %Capsule{} = capsule, kind) do
+    floor = ArtifactKind.sensitivity_floor(kind)
+    raised = ArtifactKind.at_least(capsule.sensitivity_tier, floor)
+
+    if raised == capsule.sensitivity_tier do
+      {:ok, capsule}
+    else
+      update_capsule(scope, capsule, %{sensitivity_tier: raised})
+    end
+  end
+
+  defp parse_kind(nil), do: :generic
+  defp parse_kind(kind) when is_atom(kind), do: kind
+
+  defp parse_kind(kind) when is_binary(kind) do
+    Enum.find(ArtifactKind.kinds(), :generic, &(to_string(&1) == kind))
   end
 
   @doc "Reads back an artifact's sealed ciphertext for client-side opening."

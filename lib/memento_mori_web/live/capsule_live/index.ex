@@ -62,14 +62,18 @@ defmodule MementoMoriWeb.CapsuleLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    scope = socket.assigns.current_scope
+
     if connected?(socket) do
-      Vault.subscribe_capsules(socket.assigns.current_scope)
+      Vault.subscribe_capsules(scope)
+      # First visit: land the owner on a few starter drafts instead of a blank page.
+      Vault.ensure_starter_capsules(scope)
     end
 
     {:ok,
      socket
      |> assign(:page_title, "Listing Capsules")
-     |> stream(:capsules, list_capsules(socket.assigns.current_scope))}
+     |> stream(:capsules, list_capsules(scope))}
   end
 
   @impl true

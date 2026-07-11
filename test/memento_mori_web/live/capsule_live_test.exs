@@ -4,8 +4,8 @@ defmodule MementoMoriWeb.CapsuleLiveTest do
   import Phoenix.LiveViewTest
   import MementoMori.VaultFixtures
 
-  @create_attrs %{title: "some title", sensitivity_tier: "high"}
-  @update_attrs %{title: "some updated title", sensitivity_tier: "low"}
+  @create_attrs %{title: "Read this when I'm gone", sensitivity_tier: "high"}
+  @update_attrs %{title: "The wifi password and other final wisdom", sensitivity_tier: "low"}
   # sensitivity_tier is a select with no blank option; a blank title is enough
   # to make the form invalid.
   @invalid_attrs %{title: nil}
@@ -51,7 +51,7 @@ defmodule MementoMoriWeb.CapsuleLiveTest do
 
       html = render(index_live)
       assert html =~ "Capsule created successfully"
-      assert html =~ "some title"
+      assert html =~ "Read this when I"
     end
 
     test "editing a capsule reflects in the listing", %{conn: conn, capsule: capsule} do
@@ -77,7 +77,7 @@ defmodule MementoMoriWeb.CapsuleLiveTest do
                |> follow_redirect(conn, ~p"/capsules/#{capsule}")
 
       {:ok, _index_live, html} = live(conn, ~p"/capsules")
-      assert html =~ "some updated title"
+      assert html =~ "The wifi password and other final wisdom"
     end
 
     test "deletes a capsule from the console", %{conn: conn, capsule: capsule} do
@@ -127,7 +127,7 @@ defmodule MementoMoriWeb.CapsuleLiveTest do
 
       html = render(show_live)
       assert html =~ "Capsule updated successfully"
-      assert html =~ "some updated title"
+      assert html =~ "The wifi password and other final wisdom"
     end
   end
 end

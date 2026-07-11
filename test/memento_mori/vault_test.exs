@@ -29,14 +29,14 @@ defmodule MementoMori.VaultTest do
     end
 
     test "create_capsule/2 with valid data creates a capsule in the draft state" do
-      valid_attrs = %{title: "some title", sensitivity_tier: :high}
+      valid_attrs = %{title: "Read this when I'm gone", sensitivity_tier: :high}
       scope = owner_scope_fixture()
 
       assert {:ok, %Capsule{} = capsule} = Vault.create_capsule(scope, valid_attrs)
       # State is system-managed: a fresh capsule is always a draft, never
       # whatever the caller might have tried to set.
       assert capsule.state == :draft
-      assert capsule.title == "some title"
+      assert capsule.title == "Read this when I'm gone"
       assert capsule.sensitivity_tier == :high
       assert capsule.owner_id == scope.owner.id
     end
@@ -56,10 +56,10 @@ defmodule MementoMori.VaultTest do
     test "update_capsule/3 with valid data updates the capsule" do
       scope = owner_scope_fixture()
       capsule = capsule_fixture(scope)
-      update_attrs = %{title: "some updated title", sensitivity_tier: :low}
+      update_attrs = %{title: "The wifi password and other final wisdom", sensitivity_tier: :low}
 
       assert {:ok, %Capsule{} = capsule} = Vault.update_capsule(scope, capsule, update_attrs)
-      assert capsule.title == "some updated title"
+      assert capsule.title == "The wifi password and other final wisdom"
       assert capsule.sensitivity_tier == :low
     end
 

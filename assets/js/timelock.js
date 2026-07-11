@@ -29,14 +29,43 @@ export const CapsuleSeal = {
         return
       }
 
+      // Kind + template fields live outside this (ignored) hook subtree, in the
+      // LiveView-managed part of the same panel. Read them across the panel.
+      const panel = this.el.closest(".mm-panel")
+      const kindEl = panel && panel.querySelector("[name=kind]")
+      const kind = kindEl ? kindEl.value : "generic"
+
+      const attrEls = panel ? panel.querySelectorAll("[data-seal-attr]") : []
+      const attributes = {}
+      let missing = null
+      attrEls.forEach((el) => {
+        const value = (el.value || "").trim()
+        if (value) {
+          attributes[el.dataset.sealAttr] = value
+        } else if (el.dataset.sealRequired === "true" && !missing) {
+          missing = el.placeholder.replace(/ \*$/, "")
+        }
+      })
+
+      if (missing) {
+        statusEl.textContent = "Still need: " + missing
+        return
+      }
+
       btn.disabled = true
       statusEl.textContent = "Sealing on your device…"
 
       try {
         const armored = await timelockEncrypt(round, Buffer.from(note, "utf8"), client)
-        this.pushEvent("sealed", {filename: filename, armored_ciphertext: armored})
+        this.pushEvent("sealed", {
+          filename: filename,
+          armored_ciphertext: armored,
+          kind: kind,
+          attributes: attributes,
+        })
         noteEl.value = ""
         filenameEl.value = ""
+        attrEls.forEach((el) => (el.value = ""))
         statusEl.textContent = ""
       } catch (err) {
         statusEl.textContent = "Could not seal: " + (err && err.message ? err.message : err)

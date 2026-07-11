@@ -80,6 +80,16 @@ defmodule MementoMori.Accounts do
     |> Repo.insert()
   end
 
+  @doc """
+  Stamps an owner as having received their starter capsules, so they're only
+  ever seeded once (deleting a starter afterward sticks).
+  """
+  def mark_starters_seeded(%Owner{} = owner) do
+    owner
+    |> Ecto.Changeset.change(starters_seeded_at: DateTime.utc_now() |> DateTime.truncate(:second))
+    |> Repo.update()
+  end
+
   ## Settings
 
   @doc """

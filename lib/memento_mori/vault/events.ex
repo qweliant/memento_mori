@@ -13,7 +13,7 @@ defmodule MementoMori.Vault.Events do
 
   defmodule ArtifactAdded do
     @derive Jason.Encoder
-    defstruct [:capsule_id, :artifact_id, :filename, :ciphertext_ref, :added_at]
+    defstruct [:capsule_id, :artifact_id, :kind, :filename, :ciphertext_ref, :added_at]
   end
 
   defmodule CapsuleSealed do

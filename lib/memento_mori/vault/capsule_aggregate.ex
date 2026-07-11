@@ -76,6 +76,7 @@ defmodule MementoMori.Vault.CapsuleAggregate do
     %ArtifactAdded{
       capsule_id: agg.capsule_id,
       artifact_id: cmd.artifact_id,
+      kind: cmd.kind,
       filename: cmd.filename,
       ciphertext_ref: cmd.ciphertext_ref,
       added_at: now()

@@ -13,6 +13,7 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
 
   alias MementoMori.Vault
   alias MementoMori.Vault.Capsule
+  alias MementoMori.Vault.ArtifactKind
   alias MementoMoriWeb.CapabilityToken
 
   @durations [
@@ -148,6 +149,33 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
           class="mm-panel mb-4"
         >
           <div class="mm-section-label">Seal an artifact</div>
+
+          <%!-- Kind picker + template fields are LiveView-managed; the seal hook
+               below reads across the panel when you submit. --%>
+          <form phx-change="pick_kind" class="mb-3">
+            <.input
+              type="select"
+              name="kind"
+              value={@seal_kind}
+              label="What is this?"
+              options={kind_options()}
+            />
+            <p :if={kind_hint(@seal_kind)} class="text-xs text-base-content/50 mt-1">
+              {kind_hint(@seal_kind)}
+            </p>
+          </form>
+
+          <div id="seal-template-fields" class="grid gap-2 mb-3">
+            <input
+              :for={{key, label, required} <- template_fields(@seal_kind)}
+              data-seal-attr={key}
+              data-seal-required={to_string(required)}
+              type="text"
+              placeholder={if(required, do: label <> " *", else: label)}
+              class="input w-full"
+            />
+          </div>
+
           <div
             id="capsule-seal"
             phx-hook="CapsuleSeal"
@@ -284,6 +312,7 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
             <span class="mm-hash">{artifact.byte_size} bytes</span>
           </div>
           <div class="flex flex-wrap gap-1.5 items-center mt-2">
+            <span class="mm-chip">{ArtifactKind.label(artifact.kind)}</span>
             <span class="mm-chip">sha256 {String.slice(artifact.fixity_digest || "", 0, 16)}…</span>
             <span :if={artifact.provenance_manifest} class="mm-chip mm-chip-prov">C2PA provenance</span>
           </div>
@@ -419,6 +448,7 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
      |> assign(:page_title, "Show Capsule")
      |> assign(:durations, @durations)
      |> assign(:attestations, [])
+     |> assign(:seal_kind, :generic)
      |> assign(:capsule_id, id)
      |> load()}
   end
@@ -447,6 +477,10 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
       :error ->
         {:noreply, put_flash(socket, :error, "Unknown trigger type.")}
     end
+  end
+
+  def handle_event("pick_kind", %{"kind" => kind}, socket) do
+    {:noreply, assign(socket, :seal_kind, to_kind(kind))}
   end
 
   def handle_event("sealed", params, socket) do
@@ -632,6 +666,29 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
   end
 
   ## Presentation
+
+  # Artifact-kind picker: `{label, atom}` options, the fields a kind wants, and a
+  # one-line nudge. The atom is validated back through `ArtifactKind.kinds/0`.
+  defp kind_options, do: Enum.map(ArtifactKind.kinds(), &{ArtifactKind.label(&1), &1})
+
+  defp template_fields(kind), do: ArtifactKind.fields(kind)
+
+  defp kind_hint(kind) do
+    case ArtifactKind.release_strategy(kind) do
+      :threshold_reconstruct ->
+        "Reconstructed from trustee shares on release — never handed over whole."
+
+      _ ->
+        case ArtifactKind.sensitivity_floor(kind) do
+          :high -> "High sensitivity — this raises the whole capsule's release bar."
+          _ -> nil
+        end
+    end
+  end
+
+  defp to_kind(kind) when is_binary(kind) do
+    Enum.find(ArtifactKind.kinds(), :generic, &(to_string(&1) == kind))
+  end
 
   defp lifecycle?(%{access_contract: %{trigger_type: :date}}), do: false
   defp lifecycle?(%{access_contract: %{}, state: state}) when state != :draft, do: true

@@ -10,7 +10,7 @@ defmodule MementoMori.Vault.Commands do
   end
 
   defmodule AddArtifact do
-    defstruct [:capsule_id, :artifact_id, :filename, :ciphertext_ref]
+    defstruct [:capsule_id, :artifact_id, :kind, :filename, :ciphertext_ref]
   end
 
   defmodule SealCapsule do

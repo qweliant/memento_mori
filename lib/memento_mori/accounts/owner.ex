@@ -10,6 +10,7 @@ defmodule MementoMori.Accounts.Owner do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
+    field :starters_seeded_at, :utc_datetime
 
     timestamps(type: :utc_datetime)
   end

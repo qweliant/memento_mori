@@ -11,7 +11,7 @@ defmodule MementoMori.VaultFixtures do
     attrs =
       Enum.into(attrs, %{
         sensitivity_tier: :medium,
-        title: "some title"
+        title: "In case the lights go out"
       })
 
     {:ok, capsule} = MementoMori.Vault.create_capsule(scope, attrs)
