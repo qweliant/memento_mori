@@ -227,6 +227,11 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
                   </select>
                   <input name="threshold" type="number" min="1" value="1" class="input w-24" />
                 </div>
+                <label class="mb-3 flex items-center gap-2 text-sm text-base-content/60">
+                  <span class="whitespace-nowrap">Inactivity: fire after</span>
+                  <input name="inactivity_days" type="number" min="1" value="365" class="input input-sm w-20" />
+                  <span>days of silence</span>
+                </label>
                 <.button variant="primary">Set quorum</.button>
                 <p :if={@trustee_count == 0} class="mt-2 text-xs text-warning">
                   Enroll trustees below first.
@@ -461,7 +466,7 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
     )
   end
 
-  def handle_event("set_condition_contract", %{"trigger_type" => trigger, "threshold" => n}, socket) do
+  def handle_event("set_condition_contract", %{"trigger_type" => trigger, "threshold" => n} = params, socket) do
     case Map.fetch(@trigger_atoms, trigger) do
       {:ok, trigger_type} ->
         contract_result(
@@ -470,7 +475,8 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
             scope(socket),
             socket.assigns.capsule,
             trigger_type,
-            String.to_integer(n)
+            String.to_integer(n),
+            inactivity_opts(params)
           )
         )
 
@@ -639,6 +645,17 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
   defp beneficiary_links(beneficiaries) do
     Map.new(beneficiaries, fn b -> {b.id, url(~p"/claim/#{CapabilityToken.sign_beneficiary(b)}")} end)
   end
+
+  # Pulls the inactivity window off the condition form. Ignored by the context
+  # for non-inactivity triggers; required (and validated) for :inactivity.
+  defp inactivity_opts(%{"inactivity_days" => days}) when is_binary(days) and days != "" do
+    case Integer.parse(days) do
+      {n, _} -> [inactivity_threshold_days: n]
+      :error -> []
+    end
+  end
+
+  defp inactivity_opts(_), do: []
 
   defp contract_result(socket, {:ok, _}),
     do: {:noreply, socket |> put_flash(:info, "Access contract set.") |> load()}

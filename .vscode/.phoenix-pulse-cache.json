@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "timestamp": 1783548563802,
+  "timestamp": 1784412968553,
   "workspaceRoot": "/Users/qwelian/Programs/memento_mori",
   "registries": {
     "components": {
@@ -681,6 +681,19 @@
           ]
         ],
         [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+          [
+            {
+              "name": "render",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Index",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+              "line": 7,
+              "attributes": [],
+              "slots": []
+            }
+          ]
+        ],
+        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex",
           [
             {
@@ -756,10 +769,6 @@
           ]
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
-          []
-        ],
-        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/attest_html.ex",
           [
             {
@@ -799,8 +808,8 @@
       ],
       "fileHashes": {
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/core_components.ex": "01689b010c02d0012b670138c08a6119f0c3a5c9",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "832af1466bbee7ac1add442399f41c62e1e4806a",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/components/layouts.ex": "ba5ce3e1cdd342e397f093d61c671c5566df5ec4",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex": "c5cadad1591b1ecb29b7ab1439e72042d8b2993d",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/attest_html.ex": "d827e23bbd7131f74d4028213b57572fd04b136f",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/error_html.ex": "e45d3660a28874a23de46828962cb4ea6c0e7054",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html.ex": "62d0345c050335bfafed94418b48fe6e25df73e6"
@@ -833,6 +842,10 @@
               },
               {
                 "name": "authenticated_at",
+                "type": "utc_datetime"
+              },
+              {
+                "name": "starters_seeded_at",
                 "type": "utc_datetime"
               },
               {
@@ -935,6 +948,10 @@
                 "type": "integer"
               },
               {
+                "name": "inactivity_threshold_days",
+                "type": "integer"
+              },
+              {
                 "name": "capsule",
                 "type": "assoc",
                 "elixirType": "MementoMori.Vault.Capsule"
@@ -971,6 +988,10 @@
             "moduleName": "MementoMori.Vault.Artifact",
             "tableName": "artifacts",
             "fields": [
+              {
+                "name": "attributes",
+                "type": "map"
+              },
               {
                 "name": "filename",
                 "type": "string"
@@ -1031,7 +1052,7 @@
             ],
             "aliases": {},
             "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/artifact.ex",
-            "line": 18
+            "line": 20
           }
         ],
         [
@@ -1203,6 +1224,10 @@
                 "type": "binary_id"
               },
               {
+                "name": "last_sign_of_life_at",
+                "type": "utc_datetime"
+              },
+              {
                 "name": "access_contract",
                 "type": "assoc",
                 "elixirType": "MementoMori.Vault.AccessContract"
@@ -1342,6 +1367,10 @@
                   "type": "utc_datetime"
                 },
                 {
+                  "name": "starters_seeded_at",
+                  "type": "utc_datetime"
+                },
+                {
                   "name": "inserted_at",
                   "type": "naive_datetime"
                 },
@@ -1445,6 +1474,10 @@
                   "type": "integer"
                 },
                 {
+                  "name": "inactivity_threshold_days",
+                  "type": "integer"
+                },
+                {
                   "name": "capsule",
                   "type": "assoc",
                   "elixirType": "MementoMori.Vault.Capsule"
@@ -1483,6 +1516,10 @@
               "moduleName": "MementoMori.Vault.Artifact",
               "tableName": "artifacts",
               "fields": [
+                {
+                  "name": "attributes",
+                  "type": "map"
+                },
                 {
                   "name": "filename",
                   "type": "string"
@@ -1543,7 +1580,7 @@
               ],
               "aliases": {},
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/artifact.ex",
-              "line": 18
+              "line": 20
             }
           ]
         ],
@@ -1723,6 +1760,10 @@
                   "type": "binary_id"
                 },
                 {
+                  "name": "last_sign_of_life_at",
+                  "type": "utc_datetime"
+                },
+                {
                   "name": "access_contract",
                   "type": "assoc",
                   "elixirType": "MementoMori.Vault.AccessContract"
@@ -1837,14 +1878,14 @@
         ]
       ],
       "fileHashes": {
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner.ex": "f3e8f516bb3ce27ac29259250faeca50e82eff36",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner.ex": "1a04f1764cfa420affa2f9a5aeecba300258fe36",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori/accounts/owner_token.ex": "69ec215a2f0f3d56a9dfd2755bb749f5e711ca2c",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/access_contract.ex": "3454b4430f1b4f6abe8d68225e531f4f05dcb397",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/artifact.ex": "aaf63f7f1f416597ff6cd4fb0b97b138531b8e58",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/access_contract.ex": "a8379d889771a59c39f18023b9b6d7c8c9be73b6",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/artifact.ex": "1ceca963f266bd8195fa7f26a9e76b23fbd2bc1c",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/attestation.ex": "f799a13eeb0fd8eb2c49f8336a45df9c39e65969",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/audit_event.ex": "b44f960ef849eaa05ef2263ffb138dcbf4241573",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/beneficiary.ex": "ed3962ba7c8fbd9237a94d647a8ddda9343a3d59",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/capsule.ex": "179a16b47f2470b5716dbaaa36693f1d36112de1",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/capsule.ex": "5efacba6eec480a3fa831d6f54e36ffcd81a482c",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori/vault/trustee.ex": "20a64dd069b63f2b0652110b4f1a5090fec7f5dc"
       },
       "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
@@ -1852,45 +1893,13 @@
     "events": {
       "events": [
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
-          [
-            {
-              "name": "opened",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
-              "moduleName": "MementoMoriWeb.ClaimLive",
-              "line": 52,
-              "params": "_params",
-              "kind": "handle_event",
-              "nameKind": "string"
-            },
-            {
-              "name": "defer",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
-              "moduleName": "MementoMoriWeb.ClaimLive",
-              "line": 44,
-              "params": "_params",
-              "kind": "handle_event",
-              "nameKind": "string"
-            },
-            {
-              "name": "claim",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
-              "moduleName": "MementoMoriWeb.ClaimLive",
-              "line": 34,
-              "params": "_params",
-              "kind": "handle_event",
-              "nameKind": "string"
-            }
-          ]
-        ],
-        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
           [
             {
               "name": "deleted",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 564,
+              "line": 604,
               "params": "{deleted, %}",
               "kind": "handle_info",
               "nameKind": "atom"
@@ -1899,7 +1908,7 @@
               "name": "updated",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 560,
+              "line": 600,
               "params": "{updated, %}",
               "kind": "handle_info",
               "nameKind": "atom"
@@ -1908,7 +1917,7 @@
               "name": "refresh",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 558,
+              "line": 598,
               "params": ":atom",
               "kind": "handle_info",
               "nameKind": "atom"
@@ -1917,7 +1926,7 @@
               "name": "opened",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 555,
+              "line": 595,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1926,7 +1935,7 @@
               "name": "delete",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 545,
+              "line": 585,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1935,7 +1944,7 @@
               "name": "claim",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 537,
+              "line": 577,
               "params": "%{}",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1944,7 +1953,7 @@
               "name": "withhold",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 529,
+              "line": 569,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1953,7 +1962,7 @@
               "name": "release",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 525,
+              "line": 565,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1962,7 +1971,7 @@
               "name": "record_threshold",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 517,
+              "line": 557,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1971,7 +1980,7 @@
               "name": "open_verification",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 507,
+              "line": 547,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1980,7 +1989,7 @@
               "name": "fire_trigger",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 502,
+              "line": 542,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1989,7 +1998,7 @@
               "name": "sign_of_life",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 498,
+              "line": 538,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -1998,7 +2007,7 @@
               "name": "seal_capsule",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 494,
+              "line": 534,
               "params": "_params",
               "kind": "handle_event",
               "nameKind": "string"
@@ -2007,7 +2016,7 @@
               "name": "add_beneficiary",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 479,
+              "line": 519,
               "params": "=",
               "kind": "handle_event",
               "nameKind": "string"
@@ -2016,7 +2025,7 @@
               "name": "add_trustee",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 466,
+              "line": 506,
               "params": "%{}",
               "kind": "handle_event",
               "nameKind": "string"
@@ -2025,8 +2034,17 @@
               "name": "sealed",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 452,
+              "line": 492,
               "params": "params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "pick_kind",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Show",
+              "line": 488,
+              "params": "%{}",
               "kind": "handle_event",
               "nameKind": "string"
             },
@@ -2034,8 +2052,8 @@
               "name": "set_condition_contract",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 434,
-              "params": "%{}",
+              "line": 469,
+              "params": "=",
               "kind": "handle_event",
               "nameKind": "string"
             },
@@ -2043,94 +2061,7 @@
               "name": "set_date_contract",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
               "moduleName": "MementoMoriWeb.CapsuleLive.Show",
-              "line": 427,
-              "params": "%{}",
-              "kind": "handle_event",
-              "nameKind": "string"
-            }
-          ]
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
-          [
-            {
-              "name": "submit_magic",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
-              "moduleName": "MementoMoriWeb.OwnerLive.Login",
-              "line": 114,
-              "params": "%{}",
-              "kind": "handle_event",
-              "nameKind": "string"
-            },
-            {
-              "name": "submit_password",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
-              "moduleName": "MementoMoriWeb.OwnerLive.Login",
-              "line": 110,
-              "params": "_params",
-              "kind": "handle_event",
-              "nameKind": "string"
-            }
-          ]
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
-          []
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
-          [
-            {
-              "name": "save",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
-              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
-              "line": 70,
-              "params": "%{}",
-              "kind": "handle_event",
-              "nameKind": "string"
-            },
-            {
-              "name": "validate",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
-              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
-              "line": 63,
-              "params": "%{}",
-              "kind": "handle_event",
-              "nameKind": "string"
-            }
-          ]
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
-          [
-            {
-              "name": "validate",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
-              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
-              "line": 80,
-              "params": "%{}",
-              "kind": "handle_event",
-              "nameKind": "string"
-            },
-            {
-              "name": "save",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
-              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
-              "line": 58,
-              "params": "%{}",
-              "kind": "handle_event",
-              "nameKind": "string"
-            }
-          ]
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
-          [
-            {
-              "name": "submit",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
-              "moduleName": "MementoMoriWeb.OwnerLive.Confirmation",
-              "line": 91,
+              "line": 462,
               "params": "%{}",
               "kind": "handle_event",
               "nameKind": "string"
@@ -2183,36 +2114,150 @@
           []
         ],
         [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+          [
+            {
+              "name": "save",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
+              "line": 70,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "validate",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
+              "line": 63,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
           "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs",
           []
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs",
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
+          [
+            {
+              "name": "opened",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
+              "moduleName": "MementoMoriWeb.ClaimLive",
+              "line": 52,
+              "params": "_params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "defer",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
+              "moduleName": "MementoMoriWeb.ClaimLive",
+              "line": 44,
+              "params": "_params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "claim",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
+              "moduleName": "MementoMoriWeb.ClaimLive",
+              "line": 34,
+              "params": "_params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
           []
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+          [
+            {
+              "name": "validate",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "line": 80,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "save",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "line": 58,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+          [
+            {
+              "name": "submit",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Confirmation",
+              "line": 91,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+          [
+            {
+              "name": "submit_magic",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Login",
+              "line": 114,
+              "params": "%{}",
+              "kind": "handle_event",
+              "nameKind": "string"
+            },
+            {
+              "name": "submit_password",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+              "moduleName": "MementoMoriWeb.OwnerLive.Login",
+              "line": 110,
+              "params": "_params",
+              "kind": "handle_event",
+              "nameKind": "string"
+            }
+          ]
         ],
         [
           "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs",
           []
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex",
+          "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs",
           []
         ]
       ],
       "fileHashes": {
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex": "0bc1e48586d0258205516a3d00df12b89fbb954c",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "2c87921e7f64b69f94ab5e0c44c3c10559850a89",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "3d45cb6e5d65e0e8056c1c758427a35ad059b774",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "fce405b2902a7c06f1147afc39ac5f1f7fb2e8a7",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "672e8aacb77a751e0ea20be91c882a807f8809c3",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77",
         "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/confirmation_test.exs": "8670a3054941ccc2211144c9e6c0bb2455f429cd",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "fce405b2902a7c06f1147afc39ac5f1f7fb2e8a7",
         "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs": "c242355283158fbd31d8bc3585b69eb6226867c6",
-        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs": "dc6767a54b2e37ff391c2f5a74c94cb62ba75814",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex": "0bc1e48586d0258205516a3d00df12b89fbb954c",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "832af1466bbee7ac1add442399f41c62e1e4806a",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
         "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs": "73527ff8ff5eae42282b6307dca05d7a19e2d5b5",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/router.ex": "c5cadad1591b1ecb29b7ab1439e72042d8b2993d"
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs": "dc6767a54b2e37ff391c2f5a74c94cb62ba75814"
       },
       "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
     },
@@ -2495,28 +2540,6 @@
           ]
         ],
         [
-          "MementoMoriWeb.CapsuleLive.Form",
-          [
-            {
-              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
-              "name": "render",
-              "format": "html",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render"
-            }
-          ]
-        ],
-        [
-          "MementoMoriWeb.CapsuleLive.Index",
-          [
-            {
-              "moduleName": "MementoMoriWeb.CapsuleLive.Index",
-              "name": "render",
-              "format": "html",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render"
-            }
-          ]
-        ],
-        [
           "MementoMoriWeb.CapsuleLive.Show",
           [
             {
@@ -2528,13 +2551,13 @@
           ]
         ],
         [
-          "MementoMoriWeb.ClaimLive",
+          "MementoMoriWeb.CapsuleLive.Form",
           [
             {
-              "moduleName": "MementoMoriWeb.ClaimLive",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Form",
               "name": "render",
               "format": "html",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex#render"
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render"
             }
           ]
         ],
@@ -2550,6 +2573,17 @@
           ]
         ],
         [
+          "MementoMoriWeb.ClaimLive",
+          [
+            {
+              "moduleName": "MementoMoriWeb.ClaimLive",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex#render"
+            }
+          ]
+        ],
+        [
           "MementoMoriWeb.OwnerLive.Login",
           [
             {
@@ -2557,6 +2591,17 @@
               "name": "render",
               "format": "html",
               "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex#render"
+            }
+          ]
+        ],
+        [
+          "MementoMoriWeb.OwnerLive.Registration",
+          [
+            {
+              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "name": "render",
+              "format": "html",
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render"
             }
           ]
         ],
@@ -2572,13 +2617,13 @@
           ]
         ],
         [
-          "MementoMoriWeb.OwnerLive.Registration",
+          "MementoMoriWeb.CapsuleLive.Index",
           [
             {
-              "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+              "moduleName": "MementoMoriWeb.CapsuleLive.Index",
               "name": "render",
               "format": "html",
-              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render"
+              "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render"
             }
           ]
         ]
@@ -2621,24 +2666,6 @@
           }
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render",
-          {
-            "moduleName": "MementoMoriWeb.CapsuleLive.Form",
-            "name": "render",
-            "format": "html",
-            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render"
-          }
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render",
-          {
-            "moduleName": "MementoMoriWeb.CapsuleLive.Index",
-            "name": "render",
-            "format": "html",
-            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render"
-          }
-        ],
-        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex#render",
           {
             "moduleName": "MementoMoriWeb.CapsuleLive.Show",
@@ -2648,12 +2675,12 @@
           }
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex#render",
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render",
           {
-            "moduleName": "MementoMoriWeb.ClaimLive",
+            "moduleName": "MementoMoriWeb.CapsuleLive.Form",
             "name": "render",
             "format": "html",
-            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex#render"
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex#render"
           }
         ],
         [
@@ -2666,12 +2693,30 @@
           }
         ],
         [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.ClaimLive",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex#render"
+          }
+        ],
+        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex#render",
           {
             "moduleName": "MementoMoriWeb.OwnerLive.Login",
             "name": "render",
             "format": "html",
             "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex#render"
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render",
+          {
+            "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+            "name": "render",
+            "format": "html",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render"
           }
         ],
         [
@@ -2684,12 +2729,12 @@
           }
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render",
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render",
           {
-            "moduleName": "MementoMoriWeb.OwnerLive.Registration",
+            "moduleName": "MementoMoriWeb.CapsuleLive.Index",
             "name": "render",
             "format": "html",
-            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex#render"
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex#render"
           }
         ]
       ],
@@ -2703,89 +2748,54 @@
           "MementoMoriWeb.PageHTML"
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
-          "MementoMoriWeb.CapsuleLive.Form"
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
-          "MementoMoriWeb.CapsuleLive.Index"
-        ],
-        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
           "MementoMoriWeb.CapsuleLive.Show"
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
-          "MementoMoriWeb.ClaimLive"
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex",
+          "MementoMoriWeb.CapsuleLive.Form"
         ],
         [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex",
           "MementoMoriWeb.OwnerLive.Confirmation"
         ],
         [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex",
+          "MementoMoriWeb.ClaimLive"
+        ],
+        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
           "MementoMoriWeb.OwnerLive.Login"
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+          "MementoMoriWeb.OwnerLive.Registration"
         ],
         [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
           "MementoMoriWeb.OwnerLive.Settings"
         ],
         [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
-          "MementoMoriWeb.OwnerLive.Registration"
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex",
+          "MementoMoriWeb.CapsuleLive.Index"
         ]
       ],
       "fileHashes": {
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/attest_html.ex": "d827e23bbd7131f74d4028213b57572fd04b136f",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/controllers/page_html.ex": "62d0345c050335bfafed94418b48fe6e25df73e6",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "672e8aacb77a751e0ea20be91c882a807f8809c3",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "fce405b2902a7c06f1147afc39ac5f1f7fb2e8a7",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "3d45cb6e5d65e0e8056c1c758427a35ad059b774",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "2c87921e7f64b69f94ab5e0c44c3c10559850a89",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex": "0bc1e48586d0258205516a3d00df12b89fbb954c",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex": "0bc1e48586d0258205516a3d00df12b89fbb954c",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b"
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "832af1466bbee7ac1add442399f41c62e1e4806a"
       },
       "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
     },
     "liveview": {
       "liveViews": [
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
-          {
-            "module": "MementoMoriWeb.OwnerLive.Login",
-            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
-            "functions": [
-              {
-                "line": 114,
-                "name": "submit_magic",
-                "type": "handle_event",
-                "module_name": "MementoMoriWeb.OwnerLive.Login",
-                "event_name": "submit_magic"
-              },
-              {
-                "line": 110,
-                "name": "submit_password",
-                "type": "handle_event",
-                "module_name": "MementoMoriWeb.OwnerLive.Login",
-                "event_name": "submit_password"
-              },
-              {
-                "line": 99,
-                "name": "mount",
-                "type": "mount",
-                "module_name": "MementoMoriWeb.OwnerLive.Login"
-              },
-              {
-                "line": 7,
-                "name": "render",
-                "type": "render",
-                "module_name": "MementoMoriWeb.OwnerLive.Login"
-              }
-            ]
-          }
-        ],
         [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
           {
@@ -2793,139 +2803,146 @@
             "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex",
             "functions": [
               {
-                "line": 564,
+                "line": 604,
                 "name": "deleted",
                 "type": "handle_info",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "deleted"
               },
               {
-                "line": 560,
+                "line": 600,
                 "name": "updated",
                 "type": "handle_info",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "updated"
               },
               {
-                "line": 558,
+                "line": 598,
                 "name": "refresh",
                 "type": "handle_info",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "refresh"
               },
               {
-                "line": 555,
+                "line": 595,
                 "name": "opened",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "opened"
               },
               {
-                "line": 545,
+                "line": 585,
                 "name": "delete",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "delete"
               },
               {
-                "line": 537,
+                "line": 577,
                 "name": "claim",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "claim"
               },
               {
-                "line": 529,
+                "line": 569,
                 "name": "withhold",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "withhold"
               },
               {
-                "line": 525,
+                "line": 565,
                 "name": "release",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "release"
               },
               {
-                "line": 517,
+                "line": 557,
                 "name": "record_threshold",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "record_threshold"
               },
               {
-                "line": 507,
+                "line": 547,
                 "name": "open_verification",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "open_verification"
               },
               {
-                "line": 502,
+                "line": 542,
                 "name": "fire_trigger",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "fire_trigger"
               },
               {
-                "line": 498,
+                "line": 538,
                 "name": "sign_of_life",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "sign_of_life"
               },
               {
-                "line": 494,
+                "line": 534,
                 "name": "seal_capsule",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "seal_capsule"
               },
               {
-                "line": 479,
+                "line": 519,
                 "name": "add_beneficiary",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "add_beneficiary"
               },
               {
-                "line": 466,
+                "line": 506,
                 "name": "add_trustee",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "add_trustee"
               },
               {
-                "line": 452,
+                "line": 492,
                 "name": "sealed",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "sealed"
               },
               {
-                "line": 434,
+                "line": 488,
+                "name": "pick_kind",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.CapsuleLive.Show",
+                "event_name": "pick_kind"
+              },
+              {
+                "line": 469,
                 "name": "set_condition_contract",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "set_condition_contract"
               },
               {
-                "line": 427,
+                "line": 462,
                 "name": "set_date_contract",
                 "type": "handle_event",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show",
                 "event_name": "set_date_contract"
               },
               {
-                "line": 412,
+                "line": 446,
                 "name": "mount",
                 "type": "mount",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show"
               },
               {
-                "line": 29,
+                "line": 30,
                 "name": "render",
                 "type": "render",
                 "module_name": "MementoMoriWeb.CapsuleLive.Show"
@@ -3066,6 +3083,76 @@
           }
         ],
         [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+          {
+            "module": "MementoMoriWeb.OwnerLive.Registration",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
+            "functions": [
+              {
+                "line": 80,
+                "name": "validate",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration",
+                "event_name": "validate"
+              },
+              {
+                "line": 58,
+                "name": "save",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration",
+                "event_name": "save"
+              },
+              {
+                "line": 51,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration"
+              },
+              {
+                "line": 8,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.OwnerLive.Registration"
+              }
+            ]
+          }
+        ],
+        [
+          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+          {
+            "module": "MementoMoriWeb.OwnerLive.Login",
+            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex",
+            "functions": [
+              {
+                "line": 114,
+                "name": "submit_magic",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Login",
+                "event_name": "submit_magic"
+              },
+              {
+                "line": 110,
+                "name": "submit_password",
+                "type": "handle_event",
+                "module_name": "MementoMoriWeb.OwnerLive.Login",
+                "event_name": "submit_password"
+              },
+              {
+                "line": 99,
+                "name": "mount",
+                "type": "mount",
+                "module_name": "MementoMoriWeb.OwnerLive.Login"
+              },
+              {
+                "line": 7,
+                "name": "render",
+                "type": "render",
+                "module_name": "MementoMoriWeb.OwnerLive.Login"
+              }
+            ]
+          }
+        ],
+        [
           "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex",
           {
             "module": "MementoMoriWeb.OwnerLive.Settings",
@@ -3119,56 +3206,21 @@
               }
             ]
           }
-        ],
-        [
-          "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
-          {
-            "module": "MementoMoriWeb.OwnerLive.Registration",
-            "filePath": "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex",
-            "functions": [
-              {
-                "line": 80,
-                "name": "validate",
-                "type": "handle_event",
-                "module_name": "MementoMoriWeb.OwnerLive.Registration",
-                "event_name": "validate"
-              },
-              {
-                "line": 58,
-                "name": "save",
-                "type": "handle_event",
-                "module_name": "MementoMoriWeb.OwnerLive.Registration",
-                "event_name": "save"
-              },
-              {
-                "line": 51,
-                "name": "mount",
-                "type": "mount",
-                "module_name": "MementoMoriWeb.OwnerLive.Registration"
-              },
-              {
-                "line": 8,
-                "name": "render",
-                "type": "render",
-                "module_name": "MementoMoriWeb.OwnerLive.Registration"
-              }
-            ]
-          }
         ]
       ],
       "fileHashes": {
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "2c87921e7f64b69f94ab5e0c44c3c10559850a89",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/show.ex": "672e8aacb77a751e0ea20be91c882a807f8809c3",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/form.ex": "fce405b2902a7c06f1147afc39ac5f1f7fb2e8a7",
-        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/confirmation_test.exs": "8670a3054941ccc2211144c9e6c0bb2455f429cd",
-        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs": "c242355283158fbd31d8bc3585b69eb6226867c6",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "3d45cb6e5d65e0e8056c1c758427a35ad059b774",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/capsule_live/index.ex": "832af1466bbee7ac1add442399f41c62e1e4806a",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/claim_live.ex": "0bc1e48586d0258205516a3d00df12b89fbb954c",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/confirmation.ex": "35a8a56ab37069966d73b1ea03122ac04b3ec4f0",
-        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77",
         "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/registration.ex": "316b97022e3dd80a6a5d5dcef91b96911e9e6f4b",
-        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs": "dc6767a54b2e37ff391c2f5a74c94cb62ba75814",
-        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs": "73527ff8ff5eae42282b6307dca05d7a19e2d5b5"
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/login.ex": "194adace71125734d66ec8a8cacd46aeefa5618f",
+        "/Users/qwelian/Programs/memento_mori/lib/memento_mori_web/live/owner_live/settings.ex": "77b2094dfc79773619fc11e89bc94f1155801a77",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/confirmation_test.exs": "8670a3054941ccc2211144c9e6c0bb2455f429cd",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/login_test.exs": "c242355283158fbd31d8bc3585b69eb6226867c6",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/settings_test.exs": "73527ff8ff5eae42282b6307dca05d7a19e2d5b5",
+        "/Users/qwelian/Programs/memento_mori/test/memento_mori_web/live/owner_live/registration_test.exs": "dc6767a54b2e37ff391c2f5a74c94cb62ba75814"
       },
       "workspaceRoot": "/Users/qwelian/Programs/memento_mori"
     }

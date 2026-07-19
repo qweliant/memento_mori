@@ -21,6 +21,9 @@ defmodule MementoMori.Vault.Capsule do
     field :sensitivity_tier, Ecto.Enum, values: @sensitivity_tiers, default: :low
     field :state, Ecto.Enum, values: @states, default: :draft
     field :owner_id, :binary_id
+    # System-projected from SignOfLifeRecorded (seeded at seal). Read by the
+    # dead-man's-switch sweep; never set from an owner form.
+    field :last_sign_of_life_at, :utc_datetime
 
     has_one :access_contract, AccessContract
     has_many :artifacts, Artifact

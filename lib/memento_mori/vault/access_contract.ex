@@ -32,6 +32,9 @@ defmodule MementoMori.Vault.AccessContract do
     field :embargo_until, :utc_datetime
     # Pure time capsules: drand round the content key is timelock-encrypted to.
     field :timelock_round, :integer
+    # :inactivity capsules: days of owner silence (no sign-of-life) before the
+    # dead-man's switch fires the trigger.
+    field :inactivity_threshold_days, :integer
     field :delivery_pacing, Ecto.Enum, values: @delivery_pacings, default: :immediate
 
     belongs_to :capsule, Capsule
@@ -51,6 +54,7 @@ defmodule MementoMori.Vault.AccessContract do
       :cooling_off_days,
       :embargo_until,
       :timelock_round,
+      :inactivity_threshold_days,
       :delivery_pacing,
       :capsule_id
     ])
@@ -58,6 +62,7 @@ defmodule MementoMori.Vault.AccessContract do
     |> validate_number(:cooling_off_days, greater_than_or_equal_to: 0)
     |> validate_quorum()
     |> validate_timelock()
+    |> validate_inactivity()
     |> assoc_constraint(:capsule)
     |> unique_constraint(:capsule_id)
   end
@@ -91,6 +96,20 @@ defmodule MementoMori.Vault.AccessContract do
     case get_field(changeset, :trigger_type) do
       :date ->
         validate_required(changeset, [:timelock_round])
+
+      _ ->
+        changeset
+    end
+  end
+
+  # An :inactivity capsule needs a positive silence window — the dead-man's
+  # switch has nothing to measure against without one. Other triggers ignore it.
+  defp validate_inactivity(changeset) do
+    case get_field(changeset, :trigger_type) do
+      :inactivity ->
+        changeset
+        |> validate_required([:inactivity_threshold_days])
+        |> validate_number(:inactivity_threshold_days, greater_than: 0)
 
       _ ->
         changeset

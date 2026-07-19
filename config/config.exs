@@ -83,7 +83,11 @@ config :phoenix, :json_library, Jason
 config :memento_mori, Oban,
   repo: MementoMori.Repo,
   queues: [default: 10, timers: 5, fixity: 3],
-  plugins: [{Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7}]
+  plugins: [
+    {Oban.Plugins.Pruner, max_age: 60 * 60 * 24 * 7},
+    # Dead-man's switch: hourly sweep for inactivity capsules gone silent.
+    {Oban.Plugins.Cron, crontab: [{"0 * * * *", MementoMori.Vault.DeadMansSwitch}]}
+  ]
 
 # ── Event sourcing (Commanded + EventStore) ─────────────────────────────────
 # The capsule contract engine dispatches through MementoMori.CommandedApp; its

@@ -26,13 +26,106 @@ defmodule MementoMori.Vault do
   alias MementoMori.Accounts
   alias MementoMori.Accounts.Scope
 
-  # Illustrative drafts a new owner lands on, so the app is never an empty room.
-  # Titles hint at the kinds people actually vault; they're plain drafts with no
-  # contract yet — an invitation to set one, not finished capsules.
-  @starter_capsules [
-    %{title: "A letter for when I'm gone", sensitivity_tier: :medium},
-    %{title: "Where everything is — accounts, docs, the 1040", sensitivity_tier: :medium},
-    %{title: "The master password (don't panic)", sensitivity_tier: :high}
+  # The example capsules a new owner lands on — a tour of what actually belongs in
+  # a vault, each artifact a different `ArtifactKind`. They're drafts (no contract
+  # yet), an invitation to set one. The `note` is stored as the (dev) ciphertext;
+  # required template fields must be present or the artifact changeset refuses it.
+  @example_capsules [
+    %{
+      title: "When I'm gone",
+      sensitivity_tier: :medium,
+      artifacts: [
+        %{
+          kind: :will,
+          filename: "last-will.txt",
+          note: "Everything to Dana. She'll know what to do. Good whiskey's behind the books.",
+          attributes: %{"executor" => "My sister Dana", "jurisdiction" => "New York"}
+        },
+        %{
+          kind: :letter,
+          filename: "for-mom.txt",
+          note: "Mom — I made it further than I ever told you. Thank you for all of it.",
+          attributes: %{"recipient" => "Mom", "read_when" => "at the funeral"}
+        },
+        %{
+          kind: :loose_ends,
+          filename: "cancel-these.txt",
+          note: "The gym (lol), three streaming services, that newsletter, the storage unit.",
+          attributes: %{"handler" => "Dana"}
+        }
+      ]
+    },
+    %{
+      title: "The keys to everything",
+      # starts low; the secret_key floor ratchets the whole capsule up to high.
+      sensitivity_tier: :low,
+      artifacts: [
+        %{
+          kind: :secret_key,
+          filename: "password-manager.txt",
+          note: "The master password is in your hands now. Try not to lose it like I lose keys.",
+          attributes: %{"unlocks" => "1Password (everything else lives in there)"}
+        },
+        %{
+          kind: :secret_key,
+          filename: "wallet-seed.txt",
+          note: "Twelve words. Do NOT screenshot them. I mean it. Write them down, hide them.",
+          attributes: %{"unlocks" => "The Ledger hardware wallet"}
+        }
+      ]
+    },
+    %{
+      title: "The paperwork nobody can ever find",
+      sensitivity_tier: :medium,
+      artifacts: [
+        %{
+          kind: :document,
+          filename: "house-deed.txt",
+          note: "The deed. Yes, we actually own it. Mostly. The bank owns the rest.",
+          attributes: %{"doc_type" => "Deed", "issuer" => "Kings County Clerk"}
+        },
+        %{
+          kind: :document,
+          filename: "life-insurance.txt",
+          note: "MetLife, policy's in the top drawer. Call them before you call anyone else.",
+          attributes: %{"doc_type" => "Life insurance policy", "issuer" => "MetLife"}
+        }
+      ]
+    },
+    %{
+      title: "For the ones still here",
+      sensitivity_tier: :medium,
+      artifacts: [
+        %{
+          kind: :dependent_care,
+          filename: "the-cat.txt",
+          note: "Miso eats at 7 and 7. He bites. He loves you anyway. Vet is on Union St.",
+          attributes: %{"who" => "Miso, the cat"}
+        },
+        %{
+          kind: :letter,
+          filename: "to-jordan.txt",
+          note: "Jordan — you were the best part. Go outside. Call your mother.",
+          attributes: %{"recipient" => "Jordan"}
+        }
+      ]
+    },
+    %{
+      # A "watch it unlock" example: sealed ~90s into the future, so "Try to open"
+      # is refused until the round is emitted, then reveals. `unlock_in_seconds` is
+      # read by the seeds sealer; the light placeholder path ignores it.
+      title: "Open me on the count of three",
+      sensitivity_tier: :low,
+      unlock_in_seconds: 90,
+      artifacts: [
+        %{
+          kind: :letter,
+          filename: "not-yet.txt",
+          note: "If you can read this, the ninety seconds ran out. It felt longer to me.",
+          attributes: %{"recipient" => "Whoever clicked too early", "read_when" => "once it opens"}
+        }
+      ]
+    }
   ]
 
   @doc """
@@ -71,17 +164,56 @@ defmodule MementoMori.Vault do
   end
 
   @doc """
-  Seeds an owner's starter capsules the first time, then never again (guarded by
+  Seeds an owner's example capsules the first time, then never again (guarded by
   `owner.starters_seeded_at`). Safe to call on every visit — a no-op once stamped,
-  so a deleted starter stays deleted.
+  so a deleted example stays deleted.
   """
   def ensure_starter_capsules(%Scope{owner: %{starters_seeded_at: nil}} = scope) do
-    Enum.each(@starter_capsules, &create_capsule(scope, &1))
+    seed_example_capsules(scope)
     Accounts.mark_starters_seeded(scope.owner)
     :ok
   end
 
   def ensure_starter_capsules(%Scope{}), do: :ok
+
+  @doc "The example capsule specs (data only), for seeding and inspection."
+  def example_capsules, do: @example_capsules
+
+  @doc """
+  Creates the `@example_capsules` for an owner — each capsule and its artifacts,
+  run through the real `create_capsule` / `add_sealed_artifact` paths (so events,
+  fixity, and the sensitivity floor all fire). Returns the created capsules.
+
+  `sealer` is `fn artifact, capsule_spec -> ciphertext end` — it turns an
+  artifact into the ciphertext to store, given its capsule spec (so it can vary
+  the timelock round per capsule, e.g. `unlock_in_seconds`). The default stores
+  the note as-is (a dev placeholder that won't decrypt); the seeds script passes a
+  real drand-timelock sealer so the blobs actually open. Does not touch the
+  seeded-flag; callers decide that.
+  """
+  def seed_example_capsules(%Scope{} = scope, sealer \\ &default_seal/2) do
+    Enum.map(@example_capsules, fn spec ->
+      {:ok, capsule} =
+        create_capsule(scope, Map.take(spec, [:title, :sensitivity_tier]))
+
+      Enum.each(spec.artifacts, fn artifact ->
+        seed_example_artifact(scope, capsule, artifact, sealer.(artifact, spec))
+      end)
+
+      capsule
+    end)
+  end
+
+  defp default_seal(artifact, _spec), do: artifact.note
+
+  defp seed_example_artifact(scope, capsule, artifact, ciphertext) do
+    add_sealed_artifact(scope, capsule, %{
+      "armored_ciphertext" => ciphertext,
+      "filename" => artifact.filename,
+      "kind" => to_string(artifact.kind),
+      "attributes" => artifact.attributes
+    })
+  end
 
   @doc """
   Gets a single capsule.
@@ -267,6 +399,49 @@ defmodule MementoMori.Vault do
     CommandedApp.dispatch(command)
   end
 
+  ## Dead-man's switch
+  #
+  # The automated counterpart to an owner firing a trigger. A scheduled sweep
+  # (`MementoMori.Vault.DeadMansSwitch`) asks for the capsules whose owner has
+  # gone silent past their contract's window and fires each one's inactivity
+  # trigger. Firing only moves a capsule to `:triggered`; the trustee quorum and
+  # cooling-off still gate any real release, so a false silence never releases on
+  # its own.
+
+  @doc """
+  Sealed `:inactivity` capsules whose owner has been silent (no sign-of-life)
+  for at least the contract's `inactivity_threshold_days`. `now` is injected so
+  the sweep is deterministically testable. Capsules with no recorded
+  `last_sign_of_life_at` (e.g. sealed before the field existed) are excluded —
+  the switch needs a clock start to measure from.
+  """
+  def due_inactivity_capsules(now \\ DateTime.utc_now()) do
+    Repo.all(
+      from c in Capsule,
+        join: ac in AccessContract,
+        on: ac.capsule_id == c.id,
+        where:
+          c.state == :sealed and
+            ac.trigger_type == :inactivity and
+            not is_nil(ac.inactivity_threshold_days) and
+            not is_nil(c.last_sign_of_life_at) and
+            datetime_add(c.last_sign_of_life_at, ac.inactivity_threshold_days, "day") < ^now,
+        select: c
+    )
+  end
+
+  @doc """
+  Fires a capsule's inactivity trigger as the system (no owner scope) — the
+  dead-man's switch, not an owner action. Returns the dispatch result; the
+  aggregate guard makes a redundant fire (already triggered) a harmless error.
+  """
+  def trigger_inactivity(capsule_id) when is_binary(capsule_id) do
+    CommandedApp.dispatch(%Commands.FireTrigger{
+      capsule_id: capsule_id,
+      trigger_type: :inactivity
+    })
+  end
+
   ## Access contract, artifacts, and the timelock seal
   #
   # This is where the client-side drand timelock (proven in `MementoMori.Timelock`)
@@ -402,7 +577,7 @@ defmodule MementoMori.Vault do
   with an N-of-M trustee quorum. M is the capsule's current trustee count, so
   trustees must be enrolled first.
   """
-  def set_condition_contract(%Scope{} = scope, %Capsule{} = capsule, trigger_type, threshold)
+  def set_condition_contract(%Scope{} = scope, %Capsule{} = capsule, trigger_type, threshold, opts \\ [])
       when trigger_type in [:death, :life_event, :inactivity] and is_integer(threshold) do
     true = capsule.owner_id == scope.owner.id
 
@@ -413,6 +588,7 @@ defmodule MementoMori.Vault do
       trigger_type: trigger_type,
       quorum_threshold: threshold,
       quorum_size: size,
+      inactivity_threshold_days: Keyword.get(opts, :inactivity_threshold_days),
       capsule_id: capsule.id
     })
     |> Repo.insert()
