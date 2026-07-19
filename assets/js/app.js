@@ -24,6 +24,7 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import {hooks as colocatedHooks} from "phoenix-colocated/memento_mori"
 import {TimelockOpen, CapsuleSeal} from "./timelock"
+import {initAttestSigner} from "./attest"
 import topbar from "../vendor/topbar"
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
@@ -46,6 +47,10 @@ liveSocket.connect()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
+
+// The trustee attestation page is a plain (non-LiveView) controller page, so its
+// signing is wired up directly rather than as a LiveView hook.
+initAttestSigner()
 
 // The lines below enable quality of life phoenix_live_reload
 // development features:

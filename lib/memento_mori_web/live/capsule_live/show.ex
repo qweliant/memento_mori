@@ -189,12 +189,17 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
               placeholder="Write the message to seal to the future…"
               class="textarea w-full resize-y mb-3"
             ></textarea>
+            <label class="mb-3 flex items-center gap-2 text-sm text-base-content/60">
+              <span class="whitespace-nowrap">…or attach a file</span>
+              <input data-seal-file type="file" class="file-input file-input-sm flex-1" />
+            </label>
             <div class="flex items-center gap-3">
               <button data-seal-submit type="button" class="btn btn-primary btn-sm">
                 <.icon name="hero-lock-closed" class="size-4" /> Seal to the future
               </button>
               <p data-seal-status class="text-sm text-base-content/60"></p>
             </div>
+            <p class="mt-1 text-xs text-base-content/45">A file is encrypted on your device before upload (max 5MB).</p>
           </div>
         </div>
       <% else %>
@@ -329,6 +334,8 @@ defmodule MementoMoriWeb.CapsuleLive.Show do
               data-id={artifact.id}
               data-ciphertext-id={"ct-#{artifact.id}"}
               data-target={"#reveal-#{artifact.id}"}
+              data-media-type={artifact.media_type}
+              data-filename={artifact.filename}
               type="button"
               class="btn btn-sm"
             >

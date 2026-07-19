@@ -20,6 +20,7 @@ defmodule MementoMori.Vault do
     Capsule,
     CiphertextStore,
     Commands,
+    Signature,
     Trustee
   }
 
@@ -494,6 +495,11 @@ defmodule MementoMori.Vault do
     ciphertext = Map.fetch!(attrs, "armored_ciphertext")
     filename = attrs |> Map.get("filename", "") |> normalize_filename()
     kind = parse_kind(attrs["kind"])
+    # A text note defaults to text/plain; a real file carries its own media type
+    # and reports its original (plaintext) size, which is more useful metadata
+    # than the armored ciphertext length. Either way only ciphertext is stored.
+    media_type = attrs |> Map.get("media_type") |> normalize_media_type()
+    plaintext_size = original_byte_size(attrs["byte_size"], ciphertext)
     ref = CiphertextStore.put!(ciphertext)
     artifact_id = Ecto.UUID.generate()
     checked_at = DateTime.utc_now() |> DateTime.truncate(:second)
@@ -502,8 +508,8 @@ defmodule MementoMori.Vault do
       kind: kind,
       attributes: Map.get(attrs, "attributes", %{}),
       filename: filename,
-      media_type: "text/plain",
-      byte_size: byte_size(ciphertext),
+      media_type: media_type,
+      byte_size: plaintext_size,
       ciphertext_ref: ref,
       fixity_digest: :crypto.hash(:sha256, ciphertext) |> Base.encode16(case: :lower),
       fixity_algorithm: "sha256",
@@ -569,6 +575,29 @@ defmodule MementoMori.Vault do
       trimmed -> trimmed
     end
   end
+
+  # A file artifact carries its own media type; a text note defaults to plain text.
+  defp normalize_media_type(type) when is_binary(type) do
+    case String.trim(type) do
+      "" -> "text/plain"
+      trimmed -> trimmed
+    end
+  end
+
+  defp normalize_media_type(_), do: "text/plain"
+
+  # Prefer the original plaintext size the client reports (files); fall back to
+  # the armored ciphertext size for text notes that don't send one.
+  defp original_byte_size(size, _ciphertext) when is_integer(size) and size >= 0, do: size
+
+  defp original_byte_size(size, ciphertext) when is_binary(size) do
+    case Integer.parse(size) do
+      {n, _} when n >= 0 -> n
+      _ -> byte_size(ciphertext)
+    end
+  end
+
+  defp original_byte_size(_size, ciphertext), do: byte_size(ciphertext)
 
   ## Trustees, beneficiaries, and the condition (quorum) contract
 
@@ -689,6 +718,89 @@ defmodule MementoMori.Vault do
 
         trustee |> Ecto.Changeset.change(status: :confirmed) |> Repo.update()
         {:ok, :recorded}
+    end
+  end
+
+  @doc """
+  The trustee-facing attestation flow **with proof-of-possession**.
+
+  Trust-on-first-use: the trustee's browser-generated ECDSA P-256 public key is
+  pinned to the trustee record on first attestation; thereafter it must match.
+  Every attestation carries a signature over `"capsule_id|trustee_id|attested_at"`
+  that is verified against that pinned key. A leaked bearer link alone can no
+  longer forge an attestation — you also need the private key that never left the
+  trustee's device.
+
+  `attrs` is the raw form params: `public_key` and `signature` are base64, and
+  `attested_at` is the ISO8601 string that was signed. Returns `{:ok, :recorded}`
+  or `{:error, reason}` where reason is one of `:not_found`, `:missing`,
+  `:bad_encoding`, `:missing_attested_at`, `:bad_attested_at`, `:key_mismatch`,
+  `:bad_signature`.
+  """
+  def record_signed_attestation(capsule_id, trustee_id, attrs) do
+    with {:ok, trustee} <- fetch_trustee(capsule_id, trustee_id),
+         {:ok, public_key} <- decode_b64(attrs["public_key"]),
+         {:ok, signature} <- decode_b64(attrs["signature"]),
+         {:ok, attested_at_str} <- require_string(attrs["attested_at"]),
+         {:ok, trustee} <- pin_or_match_key(trustee, public_key),
+         :ok <- verify_attestation(trustee.public_key, capsule_id, trustee_id, attested_at_str, signature),
+         {:ok, attested_at} <- parse_iso8601(attested_at_str) do
+      %Attestation{}
+      |> Attestation.changeset(%{
+        capsule_id: capsule_id,
+        trustee_id: trustee_id,
+        note: attrs["note"],
+        attested_at: attested_at,
+        signature: signature
+      })
+      |> Repo.insert(on_conflict: :nothing, conflict_target: [:capsule_id, :trustee_id])
+
+      trustee |> Ecto.Changeset.change(status: :confirmed) |> Repo.update()
+      {:ok, :recorded}
+    end
+  end
+
+  defp fetch_trustee(capsule_id, trustee_id) do
+    case Repo.get_by(Trustee, id: trustee_id, capsule_id: capsule_id) do
+      nil -> {:error, :not_found}
+      trustee -> {:ok, trustee}
+    end
+  end
+
+  defp decode_b64(value) when is_binary(value) do
+    case Base.decode64(value) do
+      {:ok, bin} -> {:ok, bin}
+      :error -> {:error, :bad_encoding}
+    end
+  end
+
+  defp decode_b64(_), do: {:error, :missing}
+
+  defp require_string(value) when is_binary(value) and value != "", do: {:ok, value}
+  defp require_string(_), do: {:error, :missing_attested_at}
+
+  # Trust-on-first-use: pin the public key the first time we see it; from then on
+  # a different key is rejected outright.
+  defp pin_or_match_key(%Trustee{public_key: nil} = trustee, public_key) do
+    trustee |> Ecto.Changeset.change(public_key: public_key) |> Repo.update()
+  end
+
+  defp pin_or_match_key(%Trustee{public_key: existing} = trustee, public_key) do
+    if existing == public_key, do: {:ok, trustee}, else: {:error, :key_mismatch}
+  end
+
+  defp verify_attestation(public_key, capsule_id, trustee_id, attested_at, signature) do
+    message = "#{capsule_id}|#{trustee_id}|#{attested_at}"
+
+    if Signature.valid?(public_key, message, signature),
+      do: :ok,
+      else: {:error, :bad_signature}
+  end
+
+  defp parse_iso8601(value) do
+    case DateTime.from_iso8601(value) do
+      {:ok, dt, _offset} -> {:ok, DateTime.truncate(dt, :second)}
+      _ -> {:error, :bad_attested_at}
     end
   end
 

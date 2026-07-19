@@ -15,6 +15,9 @@ defmodule MementoMori.Vault.Attestation do
   schema "attestations" do
     field :note, :string
     field :attested_at, :utc_datetime
+    # Raw ECDSA signature (P1363 r||s) over "capsule_id|trustee_id|attested_at",
+    # verified against the trustee's pinned public key. Proof of possession.
+    field :signature, :binary
 
     belongs_to :capsule, Capsule
     belongs_to :trustee, Trustee
@@ -24,7 +27,7 @@ defmodule MementoMori.Vault.Attestation do
 
   def changeset(attestation, attrs) do
     attestation
-    |> cast(attrs, [:note, :attested_at, :capsule_id, :trustee_id])
+    |> cast(attrs, [:note, :attested_at, :signature, :capsule_id, :trustee_id])
     |> validate_required([:attested_at, :capsule_id, :trustee_id])
     |> assoc_constraint(:capsule)
     |> assoc_constraint(:trustee)

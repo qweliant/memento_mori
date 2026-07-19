@@ -24,13 +24,26 @@ defmodule MementoMoriWeb.AttestController do
     end
   end
 
+  @signature_errors [
+    :bad_signature,
+    :key_mismatch,
+    :missing,
+    :bad_encoding,
+    :missing_attested_at,
+    :bad_attested_at
+  ]
+
   def create(conn, %{"token" => token} = params) do
     with {:ok, %{capsule_id: capsule_id, trustee_id: trustee_id}} <-
            CapabilityToken.verify_trustee(token),
-         {:ok, _} <- Vault.record_attestation(capsule_id, trustee_id, %{"note" => params["note"]}) do
+         {:ok, _} <- Vault.record_signed_attestation(capsule_id, trustee_id, params) do
       render(conn, :recorded)
     else
-      _ -> conn |> put_status(:not_found) |> render(:invalid)
+      {:error, reason} when reason in @signature_errors ->
+        conn |> put_status(:unprocessable_entity) |> render(:signature_error)
+
+      _ ->
+        conn |> put_status(:not_found) |> render(:invalid)
     end
   end
 end

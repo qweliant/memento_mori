@@ -71,6 +71,39 @@ defmodule MementoMori.VaultTimelockTest do
 
       assert artifact.filename == "message.txt"
     end
+
+    test "a text note defaults to text/plain and armored-size", %{scope: scope, capsule: capsule} do
+      ciphertext = "-----BEGIN AGE ENCRYPTED FILE-----\nopaque\n-----END-----"
+
+      assert {:ok, artifact} =
+               Vault.add_sealed_artifact(scope, capsule, %{
+                 "filename" => "note.txt",
+                 "armored_ciphertext" => ciphertext
+               })
+
+      assert artifact.media_type == "text/plain"
+      assert artifact.byte_size == byte_size(ciphertext)
+    end
+
+    test "a file keeps its media type and original plaintext size", %{scope: scope, capsule: capsule} do
+      # The armored ciphertext is larger than the original; byte_size must reflect
+      # the file the owner chose, not the encrypted blob.
+      ciphertext = String.duplicate("ARMORED", 500)
+
+      assert {:ok, artifact} =
+               Vault.add_sealed_artifact(scope, capsule, %{
+                 "filename" => "scan.pdf",
+                 "armored_ciphertext" => ciphertext,
+                 "media_type" => "application/pdf",
+                 # arrives as a string from the JS payload
+                 "byte_size" => "2048"
+               })
+
+      assert artifact.media_type == "application/pdf"
+      assert artifact.byte_size == 2048
+      refute artifact.byte_size == byte_size(ciphertext)
+      assert Vault.read_artifact_ciphertext(artifact) == ciphertext
+    end
   end
 
   describe "seal_capsule/2" do

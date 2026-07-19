@@ -23,7 +23,19 @@ defmodule MementoMoriWeb.AttestHTML do
           You've already confirmed. Thanks. There's nothing more to do.
         </div>
       <% else %>
-        <.form :let={_f} for={%{}} action={~p"/attest/#{@token}"} method="post" class="mt-6 text-left">
+        <.form
+          :let={_f}
+          for={%{}}
+          action={~p"/attest/#{@token}"}
+          method="post"
+          class="mt-6 text-left"
+          data-attest-signer="true"
+          data-capsule-id={@capsule.id}
+          data-trustee-id={@trustee.id}
+        >
+          <input type="hidden" name="public_key" value="" />
+          <input type="hidden" name="signature" value="" />
+          <input type="hidden" name="attested_at" value="" />
           <label class="mb-1.5 block text-sm font-medium text-base-content/80">
             Add a note (optional)
           </label>
@@ -41,7 +53,8 @@ defmodule MementoMoriWeb.AttestHTML do
           </button>
         </.form>
         <p class="mt-4 text-xs text-base-content/50">
-          You're only here to confirm. You'll never be asked to receive anything.
+          Your device signs this confirmation with a key only it holds, so no one else can
+          confirm as you — even with this link. You'll never be asked to receive anything.
         </p>
       <% end %>
     </.public_shell>
@@ -57,6 +70,22 @@ defmodule MementoMoriWeb.AttestHTML do
       <h1 class="text-2xl font-semibold tracking-tight">Thank you</h1>
       <p class="mt-3 text-base-content/70">
         Your confirmation has been recorded. You can close this page now.
+      </p>
+    </.public_shell>
+    """
+  end
+
+  def signature_error(assigns) do
+    ~H"""
+    <.public_shell flash={@flash}>
+      <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-error/15 text-error">
+        <.icon name="hero-lock-closed" class="size-7" />
+      </div>
+      <h1 class="text-2xl font-semibold tracking-tight">We couldn't confirm your signature</h1>
+      <p class="mt-3 text-base-content/70">
+        This confirmation couldn't be cryptographically verified. If you've confirmed before from a
+        different device or browser, use that one — your signing key lives only on the device you
+        first used. Otherwise, go back and try again.
       </p>
     </.public_shell>
     """

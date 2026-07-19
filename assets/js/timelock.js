@@ -1,16 +1,26 @@
 // drand timelock encryption in the browser.
 //
-// The whole point of the concept lives here: a message is encrypted on the
-// device and locked to a future drand round. The server only ever receives the
-// armored ciphertext. Opening asks the drand network for that round's key and is
-// refused until the round has actually been emitted.
+// The whole point of the concept lives here: a message OR a file is encrypted on
+// the device and locked to a future drand round. The server only ever receives
+// the armored ciphertext. Opening asks the drand network for that round's key and
+// is refused until the round has actually been emitted.
 import {timelockEncrypt, timelockDecrypt, mainnetClient, Buffer} from "tlock-js"
 
 // One shared client (points at drand quicknet, the timelock-capable chain).
 const client = mainnetClient()
 
+// The armored ciphertext rides the LiveView websocket, so cap the plaintext to
+// keep the payload well within the default frame limit.
+const MAX_SEAL_BYTES = 5 * 1024 * 1024 // 5 MB
+
+// Textual payloads reveal inline; everything else downloads as a file.
+function isTextual(mediaType) {
+  return !mediaType || mediaType.startsWith("text/") || mediaType === "application/json"
+}
+
 // Capsule artifact sealing. The round comes from the capsule's access contract
 // (data-round), so every artifact in a capsule locks to the one unlock moment.
+// A chosen file is sealed as-is; otherwise the typed note is sealed as text.
 // Only the ciphertext is pushed to the server.
 export const CapsuleSeal = {
   mounted() {
@@ -19,13 +29,31 @@ export const CapsuleSeal = {
     btn.addEventListener("click", async () => {
       const filenameEl = this.el.querySelector("[data-seal-filename]")
       const noteEl = this.el.querySelector("[data-seal-note]")
+      const fileEl = this.el.querySelector("[data-seal-file]")
       const statusEl = this.el.querySelector("[data-seal-status]")
 
       const note = noteEl.value || ""
-      const filename = (filenameEl.value || "").trim()
+      const typedName = (filenameEl.value || "").trim()
+      const file = fileEl && fileEl.files && fileEl.files[0]
 
-      if (!note.trim()) {
-        statusEl.textContent = "Write something to seal first."
+      // Pick the payload: a chosen file wins, otherwise the note text.
+      let plaintext, mediaType, byteSize, filename
+      if (file) {
+        if (file.size > MAX_SEAL_BYTES) {
+          statusEl.textContent = `That file is ${(file.size / 1048576).toFixed(1)}MB; the limit is 5MB.`
+          return
+        }
+        plaintext = Buffer.from(new Uint8Array(await file.arrayBuffer()))
+        mediaType = file.type || "application/octet-stream"
+        byteSize = file.size
+        filename = typedName || file.name
+      } else if (note.trim()) {
+        plaintext = Buffer.from(note, "utf8")
+        mediaType = "text/plain"
+        byteSize = null
+        filename = typedName
+      } else {
+        statusEl.textContent = "Write something, or choose a file, to seal first."
         return
       }
 
@@ -56,15 +84,21 @@ export const CapsuleSeal = {
       statusEl.textContent = "Sealing on your device…"
 
       try {
-        const armored = await timelockEncrypt(round, Buffer.from(note, "utf8"), client)
-        this.pushEvent("sealed", {
+        const armored = await timelockEncrypt(round, plaintext, client)
+        const payload = {
           filename: filename,
           armored_ciphertext: armored,
           kind: kind,
           attributes: attributes,
-        })
+          media_type: mediaType,
+        }
+        // Files report their original (plaintext) size; notes let the server default.
+        if (byteSize != null) payload.byte_size = byteSize
+
+        this.pushEvent("sealed", payload)
         noteEl.value = ""
         filenameEl.value = ""
+        if (fileEl) fileEl.value = ""
         attrEls.forEach((el) => (el.value = ""))
         statusEl.textContent = ""
       } catch (err) {
@@ -78,6 +112,7 @@ export const CapsuleSeal = {
 
 // Opens a timelock-sealed artifact: reads the ciphertext from the element named
 // in data-ciphertext-id and asks drand to decrypt. Refused until the round.
+// Text reveals inline; a file (per data-media-type) downloads as data-filename.
 export const TimelockOpen = {
   mounted() {
     this.el.addEventListener("click", async () => {
@@ -91,7 +126,33 @@ export const TimelockOpen = {
 
       try {
         const bytes = await timelockDecrypt(ctEl.textContent, client)
-        target.textContent = new TextDecoder().decode(bytes)
+        const mediaType = this.el.dataset.mediaType || ""
+
+        if (isTextual(mediaType)) {
+          target.textContent = new TextDecoder().decode(bytes)
+        } else {
+          const filename = this.el.dataset.filename || "download"
+          const blob = new Blob([bytes], {type: mediaType || "application/octet-stream"})
+          const url = URL.createObjectURL(blob)
+
+          // Trigger the download…
+          const a = document.createElement("a")
+          a.href = url
+          a.download = filename
+          document.body.appendChild(a)
+          a.click()
+          a.remove()
+
+          // …and leave a link, since a script-triggered download can be blocked.
+          target.innerHTML = ""
+          const link = document.createElement("a")
+          link.href = url
+          link.download = filename
+          link.className = "link"
+          link.textContent = "⤓ Downloaded " + filename + " — click to save again"
+          target.appendChild(link)
+        }
+
         target.classList.remove("hidden")
         this.el.classList.add("hidden")
         this.pushEvent("opened", {id: this.el.dataset.id})

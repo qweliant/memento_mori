@@ -108,6 +108,8 @@ defmodule MementoMoriWeb.ClaimLive do
                 data-id={artifact.id}
                 data-ciphertext-id={"ct-#{artifact.id}"}
                 data-target={"#reveal-#{artifact.id}"}
+                data-media-type={artifact.media_type}
+                data-filename={artifact.filename}
                 type="button"
                 class="mt-2 inline-flex items-center gap-2 rounded-lg border border-base-300 bg-base-100 px-3.5 py-2 text-sm font-medium transition hover:bg-base-200"
               >
